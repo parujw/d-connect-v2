@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dusit Connect</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  /* D-Connect Brand Palette */
+  --g:#C89A5B;       /* Gold */
+  --gd:#A57B3A;      /* Gold Dark */
+  --gl:#F7EDD8;      /* Gold Light */
+  --navy:#1F2433;    /* Deep Navy */
+  --sage:#A8B59A;    /* Soft Sage */
+  --saged:#4E6642;   /* Sage Dark (text) */
+  --sagel:#EEF1EB;   /* Sage Light (bg) */
+  --warm:#ECE9E3;    /* Warm Gray */
+  /* Functional */
+  --r:#C0392B;--rl:#FEF2F2;
+  --o:#C45C10;--ol:#FFF3E4;
+  --b:#1A56DB;--bl:#EFF6FF;
+  --y:#A06010;--yl:#FFF8EC;
+  --tx:#1F2433;--mu:#737373;--br:#ECE9E3;--bg:#FAF8F3;--wh:#FFFFFF;
+  --rd:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.app{max-width:390px;margin:0 auto;min-height:100vh;background:var(--wh);display:flex;flex-direction:column}
+
+/* Login */
+#login-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:var(--bg)}
+.logo-wrap{text-align:center;margin-bottom:32px}
+.logo-mark{position:relative;display:inline-block;margin-bottom:8px}
+.logo-d{font-family:Georgia,'Times New Roman',serif;font-size:74px;font-weight:700;font-style:italic;color:var(--navy);line-height:1;display:block}
+.logo-spark{position:absolute;top:4px;right:-22px;font-size:22px;color:var(--g);line-height:1}
+.logo-swoosh{display:block;width:90px;margin:-4px auto 0}
+.logo-wordmark{font-size:18px;font-weight:700;letter-spacing:4.5px;color:var(--navy);margin-top:10px}
+.logo-divider{width:36px;height:2px;background:var(--g);margin:7px auto 6px;border-radius:1px}
+.logo-tagline{font-size:9px;letter-spacing:2.5px;color:var(--mu);text-transform:uppercase}
+.login-box{width:100%;background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rd);padding:24px}
+.login-box .field{margin-bottom:14px}
+.login-box label{font-size:13px;font-weight:600;display:block;margin-bottom:6px;color:var(--navy)}
+.login-box input{width:100%;height:48px;padding:0 14px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:16px;color:var(--tx);background:var(--wh);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.login-box input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(200,154,91,.15)}
+.login-err{font-size:13px;color:var(--r);text-align:center;margin-top:8px;min-height:20px}
+
+/* Main App */
+#main-app{flex:1;display:none;flex-direction:column}
+
+/* Header */
+.hdr{background:var(--wh);border-bottom:1px solid var(--br);padding:12px 16px 0;position:sticky;top:0;z-index:40}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.hdr-title{display:flex;align-items:center;gap:8px}
+.app-icon{width:28px;height:28px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.app-icon-d{font-family:Georgia,serif;font-size:17px;font-weight:700;font-style:italic;color:#fff;line-height:1}
+.app-icon-spark{position:absolute;top:1px;right:1px;font-size:7px;color:var(--g);line-height:1}
+.hdr-brand{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--navy)}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.b-supervisor{background:#F5ECD8;color:#8A6020}
+.b-housekeeper{background:var(--sagel);color:var(--saged)}
+.b-frontdesk{background:#E8EBF2;color:var(--navy)}
+.b-manager{background:var(--warm);color:var(--navy)}
+.b-admin{background:#2D1B69;color:#fff}
+.hdr-name{font-size:12px;color:var(--mu);margin-bottom:6px}
+.logout-btn{font-size:11px;color:var(--mu);background:none;border:1px solid var(--br);border-radius:20px;padding:3px 9px;cursor:pointer;font-family:'Sarabun',sans-serif}
+
+/* Date nav */
+.date-nav{display:flex;align-items:center;justify-content:center;gap:10px;padding:6px 16px;border-top:1px solid var(--br)}
+.date-btn{width:28px;height:28px;border:1.5px solid var(--br);border-radius:50%;background:var(--wh);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Sarabun',sans-serif;line-height:1;color:var(--tx)}
+.date-btn:disabled{opacity:.3;cursor:default}
+.date-lbl{font-size:13px;font-weight:600;color:var(--tx);flex:1;text-align:center;cursor:pointer;padding:5px 8px;border-radius:8px;transition:background .15s;user-select:none}
+.date-lbl:hover{background:var(--gl)}
+.date-today{font-size:10px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 7px;border-radius:20px}
+
+/* Tabs */
+.tabs{display:flex;border-top:1px solid var(--br)}
+.tab{flex:1;padding:10px 4px;font-family:'Sarabun',sans-serif;font-size:12px;font-weight:600;color:var(--mu);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .15s}
+.tab.on{color:var(--g);border-bottom-color:var(--g)}
+
+/* Content */
+.content{flex:1;padding:12px;overflow-y:auto}
+
+/* Loader */
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px;gap:12px}
+.spinner{width:32px;height:32px;border:3px solid var(--gl);border-top-color:var(--g);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Cards */
+.card{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rd);padding:13px;margin-bottom:10px}
+.card-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.rnum{font-size:22px;font-weight:700;line-height:1}
+.rfloor{font-size:11px;color:var(--mu);margin-top:2px}
+.rinfo{font-size:13px;color:var(--mu);margin-bottom:8px}
+.rinfo b{color:var(--tx)}
+.rnote{font-size:12px;color:var(--r);background:var(--rl);padding:6px 10px;border-radius:8px;margin-bottom:8px}
+.rnote-ok{font-size:12px;color:var(--saged);background:var(--sagel);padding:6px 10px;border-radius:8px;margin-bottom:8px}
+
+/* Status */
+.s{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.s-unassigned{background:#E8EBF2;color:#3B4B6B}
+.s-pending{background:var(--warm);color:#555555}
+.s-cleaning{background:var(--ol);color:#9A3E00}
+.s-done{background:var(--bl);color:#1E40AF}
+.s-passed{background:var(--sagel);color:var(--saged)}
+.s-ack{background:#DCE4D6;color:#2D4A25}
+
+/* Buttons */
+.btn{height:38px;padding:0 16px;border:none;border-radius:9px;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.btn:active{opacity:.75;transform:scale(.97)}
+.btn:disabled{opacity:.4;pointer-events:none}
+.bg{background:var(--g);color:#fff}
+.bg:hover{background:var(--gd)}
+.br2{background:var(--r);color:#fff}
+.bb{background:var(--saged);color:#fff}
+.bw{background:var(--warm);color:var(--tx)}
+.btn-lg{height:48px;font-size:15px;width:100%;justify-content:center;border-radius:var(--rd)}
+.btn-full{height:44px;font-size:14px;width:100%;justify-content:center;margin-top:8px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+
+/* Chips */
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:5px 13px;border:1.5px solid var(--br);border-radius:20px;font-size:12px;font-weight:600;color:var(--mu);background:var(--wh);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s}
+.chip.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rd);padding:10px 6px;text-align:center}
+.stat-n{font-size:22px;font-weight:700}
+.stat-l{font-size:11px;color:var(--mu);margin-top:2px}
+
+/* Progress */
+.prog{margin-bottom:10px}
+.prog-hd{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:4px}
+.prog-bar{height:6px;background:var(--warm);border-radius:20px;overflow:hidden}
+.prog-fill{height:100%;background:var(--g);border-radius:20px;transition:width .4s}
+
+/* Donut chart */
+.donut-wrap{display:flex;align-items:center;gap:16px;margin-bottom:14px;padding:14px;background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rd)}
+.donut{width:90px;height:90px;border-radius:50%;position:relative;flex-shrink:0}
+.donut-hole{position:absolute;inset:14px;background:var(--wh);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-pct{font-size:18px;font-weight:700;color:var(--g);line-height:1}
+.donut-sub{font-size:9px;color:var(--mu)}
+.legend{display:flex;flex-direction:column;gap:5px;flex:1}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.leg-val{margin-left:auto;font-weight:700;font-size:12px}
+
+/* Bar chart */
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bar-lbl{font-size:11px;width:52px;flex-shrink:0;text-align:right;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-track{flex:1;background:var(--warm);border-radius:4px;overflow:hidden}
+.bar-fill{height:18px;background:var(--g);border-radius:4px;min-width:3px;transition:width .4s}
+.bar-val{font-size:11px;font-weight:700;white-space:nowrap;width:32px;text-align:right}
+
+/* Report */
+.rpt-bars{flex:1;display:flex;gap:2px;height:16px;border-radius:4px;overflow:hidden}
+.rpt-seg{height:100%;transition:width .3s;min-width:0}
+
+/* Section label */
+.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mu);margin:14px 0 8px}
+
+/* Empty */
+.empty{text-align:center;padding:44px 16px;color:var(--mu)}
+.empty-ic{font-size:28px;font-weight:300;color:var(--br);margin-bottom:10px;letter-spacing:4px}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.modal{background:var(--wh);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:390px;max-height:88vh;overflow-y:auto}
+.modal-hd{width:32px;height:4px;background:var(--br);border-radius:20px;margin:0 auto 14px}
+.modal-room{font-size:30px;font-weight:700;text-align:center;color:var(--g)}
+.modal-fl{font-size:12px;color:var(--mu);text-align:center;margin-bottom:14px}
+
+/* Form */
+.field{margin-bottom:12px}
+.field label{font-size:13px;font-weight:600;display:block;margin-bottom:5px}
+select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:15px;color:var(--tx);background:var(--wh);outline:none;-webkit-appearance:none;transition:border-color .2s}
+select:focus,textarea:focus{border-color:var(--g)}
+textarea{height:74px;resize:none;line-height:1.5}
+.sw{position:relative}
+.sw::after{content:"▾";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mu);pointer-events:none}
+.divider{height:1px;background:var(--br);margin:12px 0}
+
+/* Inspect sections */
+.inspect-pass{background:var(--sagel);border-radius:var(--rd);padding:12px;margin-bottom:10px}
+.inspect-fail{background:var(--rl);border-radius:var(--rd);padding:12px;margin-bottom:10px}
+.inspect-pass label{color:var(--saged)}
+.inspect-fail label{color:var(--r)}
+
+/* Calendar */
+.cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-lbl{font-size:15px;font-weight:700}
+.cal-nav-btn{width:32px;height:32px;border:1.5px solid var(--br);border-radius:50%;background:var(--wh);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Sarabun',sans-serif;color:var(--tx)}
+.cal-nav-btn:disabled{opacity:.3;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dh{text-align:center;font-size:10px;font-weight:700;color:var(--mu);padding:5px 0}
+.cal-d{text-align:center;padding:8px 2px;font-size:13px;border-radius:8px;cursor:pointer;transition:background .12s}
+.cal-d.today{font-weight:700;color:var(--g)}
+.cal-d.sel{background:var(--navy);color:#fff;font-weight:700}
+.cal-d.future{color:#C8C4BC;cursor:default}
+.cal-d.empty{cursor:default}
+.cal-d:not(.future):not(.empty):not(.sel):hover{background:var(--warm)}
+
+/* Performance */
+.perf-avg{font-size:19px;font-weight:700;color:var(--g);line-height:1}
+.perf-sub{font-size:10px;color:var(--mu)}
+.perf-room-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-top:1px solid var(--br)}
+
+/* Staff stats */
+.staff-score-card{background:var(--wh);border:1.5px solid var(--br);border-radius:var(--rd);padding:13px;margin-bottom:10px}
+.staff-score-name{font-size:15px;font-weight:700}
+.staff-score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.staff-score-item{text-align:center;background:var(--bg);border-radius:9px;padding:7px 4px}
+.staff-score-val{font-size:18px;font-weight:700}
+.staff-score-lbl{font-size:9px;color:var(--mu);margin-top:2px}
+.score-bad{color:var(--r)}
+.score-ok{color:var(--g)}
+.score-warn{color:var(--o)}
+/* Override modal */
+.override-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.ov-btn{padding:9px 4px;border:1.5px solid var(--br);border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;font-family:'Sarabun',sans-serif}
+.ov-btn.active{border-color:var(--g);background:var(--gl);color:var(--gd)}
+/* Report mode tabs */
+.rpt-mode{display:flex;gap:6px;margin-bottom:12px}
+.rpt-mode-btn{padding:5px 14px;border:1.5px solid var(--br);border-radius:20px;font-size:12px;font-weight:600;color:var(--mu);background:var(--wh);cursor:pointer;font-family:'Sarabun',sans-serif;transition:all .15s}
+.rpt-mode-btn.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+/* Live badge */
+.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#E74C3C;margin-right:4px;animation:pulse 1.5s infinite}
+/* Toast */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--tx);color:#fff;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:200;white-space:nowrap;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{background:var(--saged)}
+.toast.err{background:var(--r)}
+
+/* Refresh dot */
+.refresh-dot{width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;margin-left:4px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ─── DESKTOP RESPONSIVE (≥700px) ──────────────── */
+@media(min-width:700px){
+  body{background:var(--navy)}
+  .app{max-width:900px;border-radius:0;box-shadow:0 0 60px rgba(0,0,0,.3)}
+  .content{padding:20px 28px}
+  .hdr{padding:14px 28px 0}
+  /* Cards: 2-column grid */
+  .card-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start}
+  .card-list .card{margin-bottom:0}
+  /* Stats: 4-column on wide screen */
+  .stats{grid-template-columns:repeat(4,1fr)}
+  /* Donut bigger */
+  .donut{width:110px;height:110px}
+  /* Modal: centered sheet, not bottom */
+  .overlay{align-items:center;padding:20px}
+  .modal{border-radius:16px;max-width:520px;max-height:80vh}
+  /* Chips and filters: allow wrapping */
+  .chips{flex-wrap:wrap;overflow-x:visible}
+  /* Bar label wider */
+  .bar-lbl{width:80px}
+}
+@media(min-width:1100px){
+  .app{max-width:1200px}
+  .card-list{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="logo-wrap">
+    <div class="logo-mark">
+      <span class="logo-d">D</span>
+      <span class="logo-spark">✦</span>
+      <svg class="logo-swoosh" viewBox="0 0 90 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 12 Q38 2 86 10" stroke="#C89A5B" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-wordmark">D-CONNECT</div>
+    <div class="logo-divider"></div>
+    <div class="logo-tagline">Housekeeping &amp; Operations</div>
+  </div>
+  <div style="margin-bottom:14px" id="lang-login"></div>
+  <div class="login-box">
+    <div class="field">
+      <label id="lbl-user">Username</label>
+      <input type="text" id="inp-user" placeholder="เช่น sup001" autocomplete="username" autocapitalize="none"/>
+    </div>
+    <div class="field">
+      <label id="lbl-pass">Password</label>
+      <input type="password" id="inp-pass" placeholder="••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') doLogin()"/>
+    </div>
+    <button class="btn bg btn-lg" onclick="doLogin()" id="btn-login">เข้าสู่ระบบ</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app">
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-title">
+        <div class="app-icon">
+          <span class="app-icon-d">D</span>
+          <span class="app-icon-spark">✦</span>
+        </div>
+        <span class="hdr-brand">D-CONNECT</span>
+      </div>
+      <div class="hdr-right">
+        <span class="badge" id="role-badge"></span>
+        <div id="hdr-lang"></div>
+        <button class="logout-btn" id="btn-logout" onclick="doLogout()">ออก</button>
+      </div>
+    </div>
+    <div class="hdr-name" id="hdr-name"></div>
+    <div class="date-nav" id="date-nav"></div>
+    <div class="tabs" id="tabs"></div>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── SUPABASE CONFIG ─────────────────────────────────────
+// TODO: แทนที่ด้วย URL และ anon key จาก Supabase project ของคุณ
+// Project Settings → API → Project URL / anon public key
+const SB_URL = "YOUR_SUPABASE_PROJECT_URL";   // https://xxxx.supabase.co
+const SB_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+// ─── SESSION & STATE ──────────────────────────────────
+let USER = JSON.parse(sessionStorage.getItem("dc_user") || "null");
+const ST = { tabIdx:0, filter:"all", fdFloor:"", fdHk:"", supFloor:"", supHk:"", rooms:[], staff:[], date:todayISO(), report:[], perf:[], staffReport:[], reportMode:"daily", staffMode:"30d", staffMonth:"", staffYear:"" };
+
+// ─── LANGUAGE ─────────────────────────────────────────
+let LANG = localStorage.getItem("dc_lang") || "th";
+const LANG_DATA = {
+  th:{
+    signin:"เข้าสู่ระบบ", signing_in:"กำลังเข้าสู่ระบบ...", username:"Username", password:"Password",
+    logout:"ออก",
+    role_supervisor:"หัวหน้า", role_housekeeper:"แม่บ้าน", role_frontdesk:"Front Desk", role_manager:"ผู้จัดการ", role_admin:"Admin",
+    s_unassigned:"ยังไม่มอบหมาย", s_pending:"รอทำ", s_cleaning:"กำลังทำ", s_done:"รอตรวจ", s_passed:"เสร็จสมบูรณ์", s_ack:"รับทราบ",
+    tab_all_rooms:"ห้องทั้งหมด", tab_assign:"มอบหมาย", tab_perf:"เวลาทำงาน", tab_my_rooms:"ห้องของฉัน",
+    tab_dash:"Dashboard", tab_daily_report:"รายงานรายวัน", tab_staff:"สถิติพนักงาน", tab_inspect:"ตรวจห้อง", tab_status:"สถานะห้อง",
+    btn_start:"เริ่มทำ", btn_done:"เสร็จแล้ว", btn_inspect:"ตรวจห้อง", btn_assign:"มอบหมาย",
+    btn_reassign:"มอบหมายใหม่", btn_pass:"ผ่าน — เสร็จสมบูรณ์", btn_fail:"ไม่ผ่าน — ให้ทำใหม่",
+    btn_create:"+ สร้างงานวันนี้", btn_override:"Override", btn_cancel:"ยกเลิก", btn_save:"บันทึก",
+    floor:"ชั้น", housekeeper:"แม่บ้าน", started:"เริ่มมาแล้ว", duration_lbl:"ใช้เวลา",
+    min:"นาที", hr:"ชั่วโมง",
+    fd_title:"สถานะห้องพัก — Real-time", fd_cleaning:"กำลังทำ", fd_ready:"พร้อมแล้ว",
+    fd_waiting:"รอตรวจ", fd_pending:"รอทำ", fd_ack:"รับทราบแล้ว",
+    sec_progress:"ความคืบหน้าวันนี้", sec_by_staff:"ผลงานรายคน", sec_by_floor:"ความคืบหน้าตามชั้น",
+    sec_realtime:"กำลังทำ — Real-time", sec_completed:"เสร็จแล้ว — สรุปผลงาน",
+    sec_unassigned:"ห้องที่รอมอบหมาย", sec_done_rooms:"รอตรวจ",
+    no_rooms:"ยังไม่มีห้องที่ได้รับมอบหมาย", no_data:"ไม่มีข้อมูล", loading:"กำลังโหลด...",
+    today_badge:"วันนี้", min_per_room:"นาที/ห้อง", rooms_count:"ห้อง",
+    daily:"รายวัน", monthly:"รายเดือน", yearly:"รายปี",
+    perf_30days:"เวลาเฉลี่ยต่อห้อง — 30 วันล่าสุด", staff_90days:"สรุปผลงานพนักงาน — 90 วันล่าสุด",
+    report_title:"สรุปรายวัน", past_only:"ดูได้เฉพาะวันปัจจุบัน",
+    assign_done:"มอบหมายครบแล้ว", no_rooms_status:"ไม่มีห้องในสถานะนี้",
+    waiting_fd:"เสร็จสมบูรณ์", complete:"เสร็จสมบูรณ์", waiting_inspect:"รอหัวหน้าตรวจ",
+    inspection_pass:"ผ่านการตรวจ", fd_checkedin:"Front Desk รับทราบ",
+    note_lbl:"หมายเหตุ", select_hk:"เลือกแม่บ้าน", note_for_hk:"หมายเหตุสำหรับแม่บ้าน (ถ้ามี)",
+    reason_fail:"เหตุผลที่ไม่ผ่าน", assign_to:"มอบหมายให้ใคร", note_to_fd:"หมายเหตุ (ถ้ามี)",
+    change_to:"เปลี่ยน Status เป็น", change_hk:"เปลี่ยนแม่บ้าน (ถ้าต้องการ)", override_note:"หมายเหตุ",
+    override_submit:"บันทึก Override", no_cleaning:"ไม่มีห้องที่กำลังทำ",
+    no_inspect:"ไม่มีห้องที่รอตรวจ",
+    reported_by:"แจ้งโดย:", by_hk:"แม่บ้าน:",
+    room_prefix:"ห้อง", in_progress_lbl:"กำลังดำเนินการ", not_started_lbl:"ยังไม่ได้ทำ",
+    no_rooms_done:"ยังไม่มีห้องเสร็จ",
+    done_by:"ทำโดย", last_30d:"30 วันล่าสุด",
+    sort_fast_slow:"เรียงเร็ว → ช้า", no_timing:"ไม่มีข้อมูลเวลาทำงาน",
+    overview:"ภาพรวม", rooms_done_count:"ห้องเสร็จ", no_work_today:"ยังไม่มีงานวันนี้",
+    no_data_date:"ไม่มีข้อมูลวันที่เลือก", cur_date_only:"ดูได้เฉพาะวันปัจจุบัน",
+    all_assigned:"มอบหมายครบแล้ว", cur_hk:"แม่บ้านปัจจุบัน", by_who:"ทำโดย",
+    assign_room_title:"มอบหมายห้อง", no_assign_yet:"ยังไม่มีการมอบหมาย",
+    under_dev:"กำลังพัฒนา",
+    min_avg_lbl:"นาที/ห้อง (เฉลี่ย)", room_count_today:"ห้องวันนี้",
+    fd_all_rooms:"ห้องทั้งหมด", fd_filter_all:"ทั้งหมด",
+    tab_hk_track:"ติดตามแม่บ้าน", fd_hk_cleaning_now:"กำลังทำอยู่ตอนนี้", fd_no_active_hk:"ไม่มีแม่บ้านที่ได้รับมอบหมาย",
+    fd_all_floors:"ทุกชั้น", fd_all_hk:"แม่บ้านทั้งหมด",
+    total_rooms_lbl:"ห้องทั้งหมด",
+    completed_lbl:"เสร็จแล้ว",
+    unknown_lbl:"ไม่ระบุ", donut_done:"เสร็จแล้ว", in_progress_section:"กำลังดำเนินการ",
+    not_started_section:"ยังไม่ได้ทำ", by_floor:"ความคืบหน้าตามชั้น",
+    toast_start_clean:"เริ่มทำความสะอาดแล้ว", toast_sent_inspect:"ส่งให้หัวหน้าตรวจแล้ว",
+    toast_saved:"บันทึกเรียบร้อยแล้ว", toast_no_edit_past:"ไม่สามารถแก้ไขข้อมูลย้อนหลัง",
+    toast_created:"สร้างแล้ว", err_generic:"เกิดข้อผิดพลาด",
+    err_no_room:"กรุณาระบุหมายเลขห้อง", err_no_desc:"กรุณาระบุรายละเอียดปัญหา",
+    toast_pass_inspect:"ห้องผ่านการตรวจแล้ว", toast_fail_inspect:"ส่งกลับให้ทำใหม่",
+    note_fail_default:"ตรวจไม่ผ่าน กรุณาทำใหม่", year_label:"ปี",
+    auto_assign_title:"มอบหมายอัตโนมัติ", auto_assign_pending:"ห้องรอมอบหมาย",
+    auto_assign_distribute:"แจกเท่ากัน", auto_assign_go:"มอบหมายเลย",
+    auto_assign_total:"รวมที่จะมอบหมาย", auto_assign_done:"มอบหมายสำเร็จ",
+    auto_assign_rooms:"ห้อง", no_staff_available:"ไม่มีแม่บ้านที่พร้อมทำงาน",
+    auto_assign_btn:"⚡ มอบหมายอัตโนมัติ",
+    err_timeout:"หมดเวลาเชื่อมต่อ — กรุณาลองใหม่", err_load:"โหลดข้อมูลไม่สำเร็จ", btn_retry:"ลองใหม่",
+  },
+  en:{
+    signin:"Sign In", signing_in:"Signing in...", username:"Username", password:"Password",
+    logout:"Logout",
+    role_supervisor:"Supervisor", role_housekeeper:"Housekeeper", role_frontdesk:"Front Desk", role_manager:"Manager", role_admin:"Admin",
+    s_unassigned:"Unassigned", s_pending:"Pending", s_cleaning:"Cleaning", s_done:"Awaiting", s_passed:"Complete", s_ack:"Checked In",
+    tab_all_rooms:"All Rooms", tab_assign:"Assign", tab_perf:"Performance", tab_my_rooms:"My Rooms",
+    tab_dash:"Dashboard", tab_daily_report:"Daily Report", tab_staff:"Staff Stats", tab_inspect:"Inspect", tab_status:"Room Status",
+    btn_start:"Start", btn_done:"Done", btn_inspect:"Inspect", btn_assign:"Assign",
+    btn_reassign:"Re-assign", btn_pass:"Pass — Complete", btn_fail:"Fail — Redo",
+    btn_create:"+ Create Today", btn_override:"Override", btn_cancel:"Cancel", btn_save:"Save",
+    floor:"Floor", housekeeper:"Housekeeper", started:"Started", duration_lbl:"Duration",
+    min:"min", hr:"hr",
+    fd_title:"Room Status — Live", fd_cleaning:"In Progress", fd_ready:"Ready",
+    fd_waiting:"Awaiting Inspection", fd_pending:"Pending", fd_ack:"Checked In",
+    sec_progress:"Today's Progress", sec_by_staff:"Staff Performance", sec_by_floor:"Progress by Floor",
+    sec_realtime:"In Progress — Live", sec_completed:"Completed — Summary",
+    sec_unassigned:"Unassigned Rooms", sec_done_rooms:"Awaiting Inspection",
+    no_rooms:"No rooms assigned", no_data:"No data", loading:"Loading...",
+    today_badge:"Today", min_per_room:"min/room", rooms_count:"rooms",
+    daily:"Daily", monthly:"Monthly", yearly:"Yearly",
+    perf_30days:"Avg time per room — last 30 days", staff_90days:"Staff performance — last 90 days",
+    report_title:"Daily Summary", past_only:"View current date only",
+    assign_done:"All assigned", no_rooms_status:"No rooms in this status",
+    waiting_fd:"Complete", complete:"Complete", waiting_inspect:"Waiting inspection",
+    inspection_pass:"Inspection passed", fd_checkedin:"Checked in by FD",
+    note_lbl:"Note", select_hk:"Select Housekeeper", note_for_hk:"Note for housekeeper (optional)",
+    reason_fail:"Reason for failure", assign_to:"Assign to", note_to_fd:"Note to Front Desk (optional)",
+    change_to:"Change Status to", change_hk:"Change Housekeeper (optional)", override_note:"Note",
+    override_submit:"Save Override", no_cleaning:"No rooms in progress",
+    no_inspect:"No rooms awaiting inspection",
+    reported_by:"Reported by:", by_hk:"Housekeeper:",
+    room_prefix:"Room", in_progress_lbl:"In Progress", not_started_lbl:"Not Started",
+    no_rooms_done:"No rooms completed yet", no_assign_yet:"No assignments yet",
+    done_by:"By", assign_room_title:"Assign Room", last_30d:"Last 30 days",
+    sort_fast_slow:"Fastest → Slowest", no_timing:"No timing data",
+    overview:"Overview", rooms_done_count:"rooms done", no_work_today:"No tasks today",
+    no_data_date:"No data for selected date", cur_date_only:"Current date only",
+    all_assigned:"All assigned", cur_hk:"Current housekeeper", by_who:"Done by",
+    under_dev:"Coming soon",
+    min_avg_lbl:"min/room (avg)", room_count_today:"rooms today",
+    fd_all_rooms:"All Rooms", fd_filter_all:"All",
+    tab_hk_track:"Track Staff", fd_hk_cleaning_now:"Currently Cleaning", fd_no_active_hk:"No housekeepers assigned",
+    fd_all_floors:"All Floors", fd_all_hk:"All Housekeepers",
+    total_rooms_lbl:"Total Rooms",
+    completed_lbl:"Done",
+    unknown_lbl:"Unknown", donut_done:"Done", in_progress_section:"In Progress",
+    not_started_section:"Not Started", by_floor:"Progress by Floor",
+    toast_start_clean:"Cleaning started", toast_sent_inspect:"Sent for inspection",
+    toast_saved:"Saved", toast_no_edit_past:"Cannot edit past records",
+    toast_created:"created", err_generic:"Error occurred",
+    err_no_room:"Please enter room number", err_no_desc:"Please describe the issue",
+    toast_pass_inspect:"Room passed inspection", toast_fail_inspect:"Sent back for redo",
+    note_fail_default:"Failed inspection, please redo", year_label:"Year",
+    auto_assign_title:"Auto Assign", auto_assign_pending:"Rooms to assign",
+    auto_assign_distribute:"Distribute Evenly", auto_assign_go:"Assign Now",
+    auto_assign_total:"Total to assign", auto_assign_done:"Assignment complete",
+    auto_assign_rooms:"rooms", no_staff_available:"No active housekeepers",
+    auto_assign_btn:"⚡ Auto Assign",
+    err_timeout:"Connection timeout — please retry", err_load:"Failed to load data", btn_retry:"Retry",
+  },
+  my:{
+    signin:"ဝင်ရောက်ရန်", signing_in:"ဝင်ရောက်နေသည်...", username:"အသုံးပြုသူ", password:"စကားဝှက်",
+    logout:"ထွက်မည်",
+    role_supervisor:"ကြီးကြပ်", role_housekeeper:"အိမ်ရှင်မ", role_frontdesk:"ဧည့်ကြိုစားပွဲ", role_manager:"မန်နေဂျာ", role_admin:"အက်ဒမင်",
+    s_unassigned:"တာဝန်မပေးရသေး", s_pending:"စောင့်ဆိုင်း", s_cleaning:"သန့်ရှင်းနေ", s_done:"စစ်ဆေးရန်", s_passed:"ပြီးဆုံးပြီ", s_ack:"လက်ခံပြီး",
+    tab_all_rooms:"အခန်းများ", tab_assign:"တာဝန်ပေး", tab_perf:"အချိန်မှတ်တမ်း", tab_my_rooms:"ကျွန်မ၏အခန်း",
+    tab_dash:"ဒက်ရှ်ဘုတ်", tab_daily_report:"နေ့စဉ်အစီရင်ခံ", tab_staff:"ဝန်ထမ်းစာရင်း", tab_inspect:"စစ်ဆေး", tab_status:"အခန်းအခြေအနေ",
+    btn_start:"စတင်မည်", btn_done:"ပြီးပြီ", btn_inspect:"စစ်ဆေးမည်", btn_assign:"တာဝန်ပေးမည်",
+    btn_reassign:"ပြန်တာဝန်ပေး", btn_pass:"အောင်မြင် — ပြီးဆုံး", btn_fail:"မအောင်မြင် — ပြန်လုပ်",
+    btn_create:"+ ယနေ့အလုပ်ဖန်တီး", btn_override:"ကျော်လွန်", btn_cancel:"ပယ်ဖျက်", btn_save:"သိမ်းဆည်း",
+    floor:"ထပ်", housekeeper:"အိမ်ရှင်မ", started:"စတင်ပြီး", duration_lbl:"ကြာချိန်",
+    min:"မိနစ်", hr:"နာရီ",
+    fd_title:"အခန်းအခြေအနေ — တိုက်ရိုက်", fd_cleaning:"သန့်ရှင်းနေ", fd_ready:"အသင့်ဖြစ်ပြီ",
+    fd_waiting:"စစ်ဆေးရန်ဆိုင်း", fd_pending:"မစတင်သေး", fd_ack:"လက်ခံပြီး",
+    sec_progress:"ယနေ့တိုးတက်မှု", sec_by_staff:"ဝန်ထမ်းရလဒ်", sec_by_floor:"ထပ်အလိုက်",
+    sec_realtime:"သန့်ရှင်းနေ — တိုက်ရိုက်", sec_completed:"ပြီးဆုံး — အနှစ်ချုပ်",
+    sec_unassigned:"တာဝန်မပေးသေးသောအခန်း", sec_done_rooms:"စစ်ဆေးရန်ဆိုင်း",
+    no_rooms:"တာဝန်ပေးသောအခန်းမရှိသေး", no_data:"ဒေတာမရှိ", loading:"တင်နေသည်...",
+    today_badge:"ယနေ့", min_per_room:"မိနစ်/အခန်း", rooms_count:"အခန်း",
+    daily:"နေ့စဉ်", monthly:"လစဉ်", yearly:"နှစ်စဉ်",
+    perf_30days:"အခန်းတစ်ခန်းလျှင် ပျမ်းမျှအချိန် — ၃၀ ရက်", staff_90days:"ဝန်ထမ်းကုသိုလ် — ၉၀ ရက်",
+    report_title:"နေ့စဉ်အနှစ်ချုပ်", past_only:"ယနေ့ရက်ကိုသာကြည့်ပါ",
+    assign_done:"တာဝန်ပေးပြီး", no_rooms_status:"ဤအခြေအနေတွင်အခန်းမရှိ",
+    waiting_fd:"ပြီးဆုံးပြီ", complete:"ပြီးဆုံးပြီ", waiting_inspect:"စစ်ဆေးရန်စောင့်",
+    inspection_pass:"စစ်ဆေးပြီး", fd_checkedin:"ဧည့်ကြိုလက်ခံပြီး",
+    note_lbl:"မှတ်ချက်", select_hk:"အိမ်ရှင်မရွေးပါ", note_for_hk:"အိမ်ရှင်မသို့မှတ်ချက် (ရှိလျှင်)",
+    reason_fail:"မအောင်မြင်ရသည့်အကြောင်း", assign_to:"တာဝန်ပေးမည့်သူ", note_to_fd:"ဧည့်ကြိုသို့မှတ်ချက်",
+    change_to:"Status ပြောင်းမည်", change_hk:"အိမ်ရှင်မပြောင်း (ရွေးချယ်)", override_note:"မှတ်ချက်",
+    override_submit:"ကျော်လွန်မှတ်တမ်း", no_cleaning:"သန့်ရှင်းနေသောအခန်းမရှိ",
+    no_inspect:"စစ်ဆေးရန်အခန်းမရှိ",
+    reported_by:"တင်ပြသူ:", by_hk:"အိမ်ရှင်မ:",
+    room_prefix:"အခန်း", in_progress_lbl:"လုပ်ဆောင်နေ", not_started_lbl:"မစတင်သေး",
+    no_rooms_done:"အခန်းမပြီးသေး", no_assign_yet:"တာဝန်မပေးရသေး",
+    done_by:"လုပ်သူ", assign_room_title:"အခန်းတာဝန်ပေး", last_30d:"နောက်ဆုံး ၃၀ ရက်",
+    sort_fast_slow:"မြန်→နှေး", no_timing:"အချိန်ဒေတာမရှိ",
+    overview:"ခြုံငုံ", rooms_done_count:"အခန်းပြီး", no_work_today:"ယနေ့အလုပ်မရှိ",
+    no_data_date:"ဤနေ့တွင်ဒေတာမရှိ", cur_date_only:"ယနေ့ရက်ကိုသာ",
+    all_assigned:"တာဝန်ပေးပြီးဆုံး", cur_hk:"လက်ရှိအိမ်ရှင်မ", by_who:"လုပ်သူ",
+    under_dev:"ဆက်ဖော်ဆောင်မည်",
+    min_avg_lbl:"မိနစ်/အခန်း (ပျမ်းမျှ)", room_count_today:"ယနေ့အခန်း",
+    fd_all_rooms:"အခန်းများအားလုံး", fd_filter_all:"အားလုံး",
+    tab_hk_track:"ဝန်ထမ်းကြည့်", fd_hk_cleaning_now:"သန့်ရှင်းနေ", fd_no_active_hk:"တာဝန်ပေးထားသောအိမ်ရှင်မမရှိ",
+    fd_all_floors:"ထပ်အားလုံး", fd_all_hk:"အိမ်ရှင်မအားလုံး",
+    total_rooms_lbl:"အခန်းစုစုပေါင်း",
+    completed_lbl:"ပြီးဆုံး",
+    unknown_lbl:"မသိ", donut_done:"ပြီး", in_progress_section:"လုပ်ဆောင်နေ",
+    not_started_section:"မစတင်သေး", by_floor:"ထပ်အလိုက်တိုးတက်မှု",
+    toast_start_clean:"သန့်ရှင်းမှုစတင်ပြီ", toast_sent_inspect:"စစ်ဆေးရန်ပို့ပြီ",
+    toast_saved:"သိမ်းဆည်းပြီ", toast_no_edit_past:"ကြိုတင်မှတ်တမ်းကိုမပြင်နိုင်",
+    toast_created:"ဖန်တီးပြီ", err_generic:"အမှားဖြစ်သည်",
+    err_no_room:"အခန်းနံပါတ်ထည့်ပါ", err_no_desc:"ပြဿနာအသေးစိတ်ဖြည့်ပါ",
+    toast_pass_inspect:"အခန်းစစ်ဆေးပြီ", toast_fail_inspect:"ပြန်လုပ်ရန်ပို့ပြီ",
+    note_fail_default:"စစ်ဆေးမအောင်မြင်, ပြန်လုပ်ပါ", year_label:"နှစ်",
+    auto_assign_title:"အလိုအလျောက်တာဝန်ပေး", auto_assign_pending:"တာဝန်မပေးရသေးသောအခန်း",
+    auto_assign_distribute:"တန်းတူခွဲ", auto_assign_go:"တာဝန်ပေးမည်",
+    auto_assign_total:"စုစုပေါင်းတာဝန်ပေးမည်", auto_assign_done:"တာဝန်ပေးပြီး",
+    auto_assign_rooms:"အခန်း", no_staff_available:"အိမ်ရှင်မမရှိ",
+    auto_assign_btn:"⚡ အလိုအလျောက်တာဝန်ပေး",
+    err_timeout:"ချိတ်ဆက်မှုကုန်ဆုံးသည် — ထပ်စမ်းပါ", err_load:"ဒေတာတင်မရပါ", btn_retry:"ထပ်စမ်း",
+  }
+};
+function t(k){ return (LANG_DATA[LANG]||LANG_DATA.th)[k]||k; }
+function changeLang(l){
+  LANG=l; localStorage.setItem("dc_lang",l);
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("on",b.dataset.lang===l));
+  if(USER) showApp(); else updateLoginLang();
+}
+function langToggleHTML(){
+  return `<div style="display:flex;gap:3px;align-items:center">
+    ${["th","en","my"].map(l=>`<button class="lang-btn${LANG===l?" on":""}" data-lang="${l}" onclick="changeLang('${l}')"
+      style="padding:3px 7px;font-size:10px;font-weight:700;border:1.5px solid var(--br);border-radius:12px;background:${LANG===l?"var(--navy)":"var(--wh)"};color:${LANG===l?"#fff":"var(--mu)"};cursor:pointer;font-family:'Sarabun',sans-serif;transition:all .15s"
+    >${l==="th"?"ไทย":l==="en"?"EN":"မြ"}</button>`).join("")}
+  </div>`;
+}
+function updateLoginLang(){
+  const el = document.querySelector("#login-screen label");
+  // re-render login labels
+  document.querySelectorAll(".login-box label").forEach((lb,i)=>{ lb.textContent=i===0?t("username"):t("password"); });
+  document.querySelector("#btn-login").textContent=t("signin");
+  document.querySelector(".logo-tagline").textContent="Housekeeping & Operations";
+  document.querySelector("#lang-login")?.replaceWith(createLangToggle());
+}
+
+// ─── DATE HELPERS ────────────────────────────────────
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function fmtDateTH(s) { return fmtDate(s); } // kept for backward compat
+function fmtDate(s) {
+  const [yr,mo,dy] = s.split("-").map(Number);
+  if(LANG==="en"){
+    const m=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return `${dy} ${m[mo]} ${yr}`;
+  }
+  if(LANG==="my"){
+    const m=["","ဇန်","ဖေ","မတ်","ဧပြ","မေ","ဇွန်","ဇူ","ဩ","စက်","အောက်","နို","ဒီ"];
+    return `${dy} ${m[mo]} ${yr}`;
+  }
+  const m=["","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+  return `${dy} ${m[mo]} ${yr+543}`;
+}
+function fmtMonthTH(y, m) { return fmtMonth(y, m); } // kept for backward compat
+function fmtMonth(y, m) {
+  if(LANG==="en"){
+    const mo=["","January","February","March","April","May","June","July","August","September","October","November","December"];
+    return `${mo[m]} ${y}`;
+  }
+  if(LANG==="my"){
+    const mo=["","ဇန်နဝါရီ","ဖေဖော်ဝါရီ","မတ်","ဧပြီ","မေ","ဇွန်","ဇူလိုင်","ဩဂုတ်","စက်တင်ဘာ","အောက်တိုဘာ","နိုဝင်ဘာ","ဒီဇင်ဘာ"];
+    return `${mo[m]} ${y}`;
+  }
+  const mo=["","มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+  return `${mo[m]} ${y+543}`;
+}
+function isToday() { return ST.date === todayISO(); }
+function isPast()  { return ST.date < todayISO(); }
+
+// ─── STATUS HELPERS ──────────────────────────────────
+function SL(){ return { unassigned:t("s_unassigned"), pending:t("s_pending"), cleaning:t("s_cleaning"), done:t("s_done"), passed:t("s_passed"), ack:t("s_ack") }; }
+function sb(s){ return `<span class="s s-${s}">${SL()[s]||s}</span>`; }
+function elapsed(ms){
+  if(!ms) return "—";
+  const m = Math.floor((Date.now()-ms)/60000);
+  return m < 60 ? `${m} ${t("min")}` : `${Math.floor(m/60)} ${t("hr")} ${m%60} ${t("min")}`;
+}
+function duration(startMs, endMs){
+  if(!startMs||!endMs) return "—";
+  const m = Math.floor((endMs-startMs)/60000);
+  return m < 60 ? `${m} ${t("min")}` : `${Math.floor(m/60)} ${t("hr")} ${m%60} ${t("min")}`;
+}
+
+// ─── SUPABASE REST HELPERS ───────────────────────────
+const _sbH = ()=>({ "Content-Type":"application/json", "apikey":SB_KEY, "Authorization":`Bearer ${SB_KEY}` });
+
+async function _sbGet(table, qs=""){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`, { headers:_sbH() });
+  if(!r.ok) throw new Error(await r.text());
+  return r.json();
+}
+async function _sbPost(table, data, onConflict=null){
+  const h = { ..._sbH(), "Prefer": onConflict ? "resolution=merge-duplicates,return=minimal" : "return=minimal" };
+  const url = onConflict ? `${SB_URL}/rest/v1/${table}?on_conflict=${onConflict}` : `${SB_URL}/rest/v1/${table}`;
+  const r = await fetch(url, { method:"POST", headers:h, body:JSON.stringify(data) });
+  if(!r.ok) throw new Error(await r.text());
+}
+async function _sbPatch(table, qs, data){
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${qs}`, {
+    method:"PATCH", headers:{ ..._sbH(), "Prefer":"return=minimal" }, body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error(await r.text());
+}
+function _mapRoom(r){
+  return {
+    id:r.room_no, floor:r.floor, date:r.date, status:r.status,
+    assignedTo:r.assigned_to||"", assignedName:r.assigned_name||"",
+    startTime:r.start_time?new Date(r.start_time).getTime():null,
+    endTime:r.end_time?new Date(r.end_time).getTime():null,
+    note:r.note||""
+  };
+}
+
+// ─── API LAYER (replaces GAS) ────────────────────────
+async function gasGet(payload){
+  try {
+    switch(payload.action){
+      case "login":          return await _apiLogin(payload);
+      case "getRooms":       return await _apiGetRooms(payload);
+      case "getStaff":       return await _apiGetStaff();
+      case "getStaffReport": return await _apiGetStaffReport(payload);
+      case "bulkAssign":     return await _apiBulkAssign(payload);
+      case "initDaily":      return await _apiInitDaily(payload);
+      default: return { success:false, message:"Unknown action" };
+    }
+  } catch(e){ return { success:false, message:e.message||t("err_load") }; }
+}
+async function gasCall(payload){
+  try {
+    switch(payload.action){
+      case "updateStatus":   await _apiUpdateStatus(payload);   break;
+      case "assignRoom":     await _apiAssignRoom(payload);     break;
+      case "inspect":        await _apiInspect(payload);        break;
+      case "adminSetStatus": await _apiAdminSetStatus(payload); break;
+    }
+    return { success:true };
+  } catch(e){ return { success:false, message:e.message }; }
+}
+
+async function _apiLogin({ username, password }){
+  const data = await _sbGet("staff", `id=eq.${encodeURIComponent(username)}&password=eq.${encodeURIComponent(password)}&select=id,name,nickname,role,status&limit=1`);
+  if(!data.length) return { success:false, message:"Username หรือ Password ไม่ถูกต้อง" };
+  const s = data[0];
+  if(s.status !== "active") return { success:false, message:"บัญชีนี้ถูกระงับการใช้งาน" };
+  return { success:true, staffId:s.id, name:s.name, nickname:s.nickname, role:s.role };
+}
+
+async function _apiGetRooms({ role, staffId, date, showAll }){
+  const d = date || todayISO();
+  if(role === "housekeeper"){
+    const rows = await _sbGet("rooms", `date=eq.${d}&assigned_to=eq.${encodeURIComponent(staffId)}`);
+    return { success:true, rooms:rows.map(_mapRoom) };
+  }
+  const rows = await _sbGet("rooms", `date=eq.${d}`);
+  if(showAll || role === "supervisor" || role === "manager" || role === "admin"){
+    const map = {}; rows.forEach(r=>{ map[r.room_no] = _mapRoom(r); });
+    const full = allHotelRooms().map(r =>
+      map[r.id] || { id:r.id, floor:r.floor, date:d, status:"unassigned", assignedTo:"", assignedName:"", startTime:null, endTime:null, note:"" }
+    );
+    return { success:true, rooms:full };
+  }
+  return { success:true, rooms:rows.map(_mapRoom) };
+}
+
+async function _apiGetStaff(){
+  const data = await _sbGet("staff", "role=eq.housekeeper&status=eq.active&select=id,name,nickname&order=name");
+  return { success:true, staff:data.map(s=>({ id:s.id, name:s.name, nickname:s.nickname })) };
+}
+
+async function _apiUpdateStatus({ roomId, status, staffId, staffName, date }){
+  const d = date || todayISO();
+  const u = { status };
+  if(status === "cleaning") u.start_time = new Date().toISOString();
+  if(status === "done")     u.end_time   = new Date().toISOString();
+  await _sbPatch("rooms", `room_no=eq.${roomId}&date=eq.${d}`, u);
+  _sbPost("history", { room_no:roomId, user_id:staffId, user_name:staffName, action:status, note:"" });
+}
+
+async function _apiAssignRoom({ roomId, staffId, staffName, supervisorId, supervisorName, note, date }){
+  const d = date || todayISO();
+  await _sbPost("rooms", {
+    room_no:roomId, floor:parseInt(String(roomId).slice(0,-2)), date:d,
+    status:"pending", assigned_to:staffId, assigned_name:staffName,
+    start_time:null, end_time:null, note:note||""
+  }, "room_no,date");
+  _sbPost("history", { room_no:roomId, user_id:supervisorId, user_name:supervisorName, action:"assigned", note:staffName });
+}
+
+async function _apiBulkAssign({ assignments, date }){
+  const d = date || todayISO();
+  const rows = assignments.map(a=>({
+    room_no:a.roomId, floor:a.floor, date:d, status:"pending",
+    assigned_to:a.staffId, assigned_name:a.staffName, start_time:null, end_time:null, note:""
+  }));
+  await _sbPost("rooms", rows, "room_no,date");
+  _sbPost("history", assignments.map(a=>({ room_no:a.roomId, user_id:a.staffId, user_name:a.staffName, action:"assign", note:"auto" })));
+  return { success:true, count:assignments.length };
+}
+
+async function _apiInspect({ roomId, result, note, newStaffId, newStaffName, supervisorId, supervisorName, date }){
+  const d = date || todayISO();
+  const u = result === "passed"
+    ? { status:"passed", note:note||"" }
+    : { status:"pending", assigned_to:newStaffId||null, assigned_name:newStaffName||"", start_time:null, end_time:null, note:note||"ตรวจไม่ผ่าน กรุณาทำใหม่" };
+  await _sbPatch("rooms", `room_no=eq.${roomId}&date=eq.${d}`, u);
+  _sbPost("history", { room_no:roomId, user_id:supervisorId, user_name:supervisorName, action:result==="passed"?"passed":"failed", note:note||"" });
+}
+
+async function _apiAdminSetStatus({ roomId, status, staffId, staffName, assignedTo, assignedName, note, clearTimes, date }){
+  const d = date || todayISO();
+  const u = { status };
+  if(assignedTo)           u.assigned_to   = assignedTo;
+  if(assignedName)         u.assigned_name = assignedName;
+  if(note !== undefined)   u.note = note;
+  if(status === "cleaning") u.start_time = new Date().toISOString();
+  if(status === "done")     u.end_time   = new Date().toISOString();
+  if(["pending","passed"].includes(status) && clearTimes){ u.start_time = null; u.end_time = null; }
+  await _sbPatch("rooms", `room_no=eq.${roomId}&date=eq.${d}`, u);
+  _sbPost("history", { room_no:roomId, user_id:staffId, user_name:staffName, action:"admin_override:"+status, note:note||"" });
+}
+
+async function _apiGetStaffReport({ startDate, endDate }){
+  let qs = "select=assigned_name,status,start_time,end_time&assigned_name=neq.";
+  if(startDate) qs += `&date=gte.${startDate}`;
+  if(endDate)   qs += `&date=lte.${endDate}`;
+  const data = await _sbGet("rooms", qs);
+  const byStaff = {};
+  data.forEach(r=>{
+    const name = r.assigned_name||""; if(!name) return;
+    if(!byStaff[name]) byStaff[name]={ name, totalRooms:0, completedRooms:0, totalMs:0, timingCount:0 };
+    byStaff[name].totalRooms++;
+    if(["done","passed"].includes(r.status)){
+      byStaff[name].completedRooms++;
+      const s0=r.start_time?new Date(r.start_time).getTime():null;
+      const e0=r.end_time?new Date(r.end_time).getTime():null;
+      if(s0&&e0&&e0>s0){ byStaff[name].totalMs+=(e0-s0); byStaff[name].timingCount++; }
+    }
+  });
+  const result = Object.values(byStaff).map(s=>({
+    name:s.name, totalRooms:s.totalRooms, completedRooms:s.completedRooms,
+    avgDuration:s.timingCount>0?Math.round(s.totalMs/s.timingCount):0
+  })).sort((a,b)=>b.completedRooms-a.completedRooms||a.avgDuration-b.avgDuration);
+  return { success:true, byStaff:result };
+}
+
+async function _apiInitDaily({ date }){
+  const d = date || todayISO();
+  const existing = await _sbGet("rooms", `date=eq.${d}&select=room_no&limit=1`);
+  if(existing.length > 0) return { success:false, message:"มีข้อมูลของวันนี้แล้ว" };
+  const rows = allHotelRooms().map(r=>({
+    room_no:r.id, floor:r.floor, date:d, status:"unassigned",
+    assigned_to:null, assigned_name:"", start_time:null, end_time:null, note:""
+  }));
+  await _sbPost("rooms", rows, "room_no,date");
+  return { success:true, count:rows.length };
+}
+
+// ─── AUTO-REFRESH ────────────────────────────────────
+let _refreshTimer = null;
+function startAutoRefresh(){
+  stopAutoRefresh();
+  _refreshTimer = setInterval(async () => {
+    if(!USER) return;
+    const v = getView();
+    if(v==="mgr_staff") return;
+    const isFD  = USER.role==="frontdesk";
+    const isMgr = USER.role==="manager";
+    const role  = (USER.role==="admin") ? "supervisor" : USER.role;
+    const res = await gasGet({ action:"getRooms", role, staffId:USER.staffId, date:ST.date, showAll: (isFD||isMgr) || undefined });
+    if(res.success){
+      // Only re-render if data actually changed (avoid unnecessary DOM rebuild)
+      const newJson = JSON.stringify(res.rooms||[]);
+      const oldJson = JSON.stringify(ST.rooms);
+      if(newJson !== oldJson){ ST.rooms = res.rooms||[]; renderContent(); }
+    }
+  }, 30000);
+}
+function stopAutoRefresh(){ if(_refreshTimer){ clearInterval(_refreshTimer); _refreshTimer=null; } }
+
+function softRefresh(delayMs=2500){
+  setTimeout(async ()=>{
+    if(!USER) return;
+    const v = getView();
+    if(v==="mgr_staff") return;
+    const isFD  = USER.role==="frontdesk";
+    const isMgr = USER.role==="manager";
+    const role  = (USER.role==="admin") ? "supervisor" : USER.role;
+    const res = await gasGet({ action:"getRooms", role, staffId:USER.staffId, date:ST.date, showAll: (isFD||isMgr) || undefined });
+    if(res.success){
+      const newJson = JSON.stringify(res.rooms||[]);
+      const oldJson = JSON.stringify(ST.rooms);
+      if(newJson !== oldJson){ ST.rooms = res.rooms||[]; renderContent(); }
+    }
+  }, delayMs);
+}
+
+// ─── LIVE TIMER (elapsed display) ────────────────────
+let _liveTimer = null;
+function startLiveTimer(){
+  stopLiveTimer();
+  _updateElapsed();
+  _liveTimer = setInterval(_updateElapsed, 30000);
+}
+function stopLiveTimer(){ if(_liveTimer){ clearInterval(_liveTimer); _liveTimer=null; } }
+function _updateElapsed(){
+  document.querySelectorAll("[data-elapsed]").forEach(el=>{
+    const ms = parseInt(el.dataset.elapsed);
+    if(ms) el.textContent = elapsed(ms);
+  });
+}
+
+// ─── LOGIN ───────────────────────────────────────────
+async function doLogin(){
+  const user = document.getElementById("inp-user").value.trim();
+  const pass = document.getElementById("inp-pass").value;
+  const err  = document.getElementById("login-err");
+  const btn  = document.getElementById("btn-login");
+  if(!user||!pass){ err.textContent="กรุณากรอก Username และ Password"; return; }
+  btn.disabled=true; btn.textContent=t("signing_in"); err.textContent="";
+  const res = await gasGet({ action:"login", username:user, password:pass });
+  if(res.success){
+    USER = res;
+    sessionStorage.setItem("dc_user", JSON.stringify(USER));
+    showApp();
+  } else {
+    err.textContent = res.message||"เกิดข้อผิดพลาด";
+    btn.disabled=false; btn.textContent="เข้าสู่ระบบ";
+  }
+}
+
+function doLogout(){
+  USER=null;
+  sessionStorage.removeItem("dc_user");
+  ST.rooms=[]; ST.staff=[]; ST.tabIdx=0; ST.filter="all"; ST.fdFloor=""; ST.fdHk=""; ST.supFloor=""; ST.supHk=""; ST.date=todayISO(); ST.report=[]; ST.perf=[]; ST.staffReport=[]; ST.reportMode="daily"; ST.staffMode="30d"; ST.staffMonth=""; ST.staffYear="";
+  stopAutoRefresh(); stopLiveTimer();
+  document.getElementById("main-app").style.display="none";
+  document.getElementById("login-screen").style.display="flex";
+  document.getElementById("inp-user").value="";
+  document.getElementById("inp-pass").value="";
+  document.getElementById("login-err").textContent="";
+  const bl = document.getElementById("btn-login");
+  bl.disabled=false; bl.textContent=t("signin");
+}
+
+// ─── SHOW APP ────────────────────────────────────────
+function showApp(){
+  document.getElementById("login-screen").style.display="none";
+  const ma = document.getElementById("main-app");
+  ma.style.display="flex";
+
+  const roleLabel = { supervisor:t("role_supervisor"), housekeeper:t("role_housekeeper"), frontdesk:t("role_frontdesk"), manager:t("role_manager"), admin:t("role_admin") };
+  const roleClass = { supervisor:"b-supervisor", housekeeper:"b-housekeeper", frontdesk:"b-frontdesk", manager:"b-manager", admin:"b-admin" };
+  const b = document.getElementById("role-badge");
+  b.textContent = roleLabel[USER.role]||USER.role;
+  b.className   = "badge "+(roleClass[USER.role]||"");
+  document.getElementById("hdr-name").textContent = USER.name;
+
+  // language toggle in header
+  const hl = document.getElementById("hdr-lang");
+  if(hl) hl.innerHTML = langToggleHTML();
+  const bl2 = document.getElementById("btn-logout");
+  if(bl2) bl2.textContent = t("logout");
+  renderTabs();
+  updateDateNav();
+  loadAndRender();
+  startAutoRefresh();
+}
+
+// ─── TABS ────────────────────────────────────────────
+function tabCfg(){
+  return {
+    supervisor:  [{lbl:t("tab_all_rooms"),v:"sup_rooms"},{lbl:t("tab_assign"),v:"sup_assign"},{lbl:t("tab_perf"),v:"sup_perf"}],
+    housekeeper: [{lbl:t("tab_my_rooms"),v:"hk_rooms"}],
+    frontdesk:   [{lbl:t("tab_all_rooms"),v:"fd_status"}],
+    manager:     [{lbl:t("tab_daily_report"),v:"mgr_dash"},{lbl:t("tab_all_rooms"),v:"mgr_all"},{lbl:t("tab_staff"),v:"mgr_staff"}],
+    admin:       [{lbl:t("tab_all_rooms"),v:"adm_rooms"},{lbl:t("tab_assign"),v:"sup_assign"},{lbl:t("tab_inspect"),v:"adm_inspect"},{lbl:t("tab_staff"),v:"mgr_staff"}],
+  };
+}
+function renderTabs(){
+  const tbs = (tabCfg()[USER.role]||[]);
+  document.getElementById("tabs").innerHTML = tbs.map((t,i)=>
+    `<button class="tab ${i===ST.tabIdx?"on":""}" onclick="goTab(${i})">${t.lbl}</button>`
+  ).join("");
+}
+function getView(){
+  return ((tabCfg()[USER.role]||[])[ST.tabIdx]||{}).v;
+}
+function goTab(i){
+  ST.tabIdx=i; ST.filter="all"; ST.supFloor=""; ST.supHk="";
+  renderTabs();
+  loadAndRender();
+}
+function setSupFloor(v){ ST.supFloor=v; renderContent(); }
+function setSupHk(v){    ST.supHk=v;    renderContent(); }
+function setF(f){ ST.filter=f; renderContent(); }
+function setFdFloor(v){ ST.fdFloor=v; renderContent(); }
+function setFdHk(v){ ST.fdHk=v; renderContent(); }
+
+// ─── DATE NAV ────────────────────────────────────────
+function updateDateNav(){
+  const nav = document.getElementById("date-nav");
+  if(!nav) return;
+  const today = isToday();
+  nav.innerHTML = `
+    <button class="date-btn" onclick="changeDate(-1)">‹</button>
+    <div class="date-lbl" onclick="openCalendar()">${fmtDate(ST.date)}${today?` <span class="date-today">${t("today_badge")}</span>`:""}</div>
+    <button class="date-btn" onclick="changeDate(1)" ${today?"disabled":""}>›</button>
+  `;
+}
+function changeDate(delta){
+  const [y,m,d] = ST.date.split("-").map(Number);
+  const dt = new Date(y, m-1, d);
+  dt.setDate(dt.getDate()+delta);
+  const nd = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
+  if(nd > todayISO()) return;
+  ST.date=nd; ST.filter="all"; ST.report=[]; ST.perf=[];
+  updateDateNav();
+  loadAndRender();
+}
+
+// ─── CALENDAR ────────────────────────────────────────
+function openCalendar(){
+  const [cy,cm] = ST.date.split("-").map(Number);
+  let vy=cy, vm=cm;
+  const today = todayISO();
+  const [ty,tm] = today.split("-").map(Number);
+  const dayHdr = LANG==="en" ? ["M","T","W","T","F","S","S"] :
+                 LANG==="my" ? ["တ","အ","ဗ","ကြ","သ","စ","တ"] :
+                               ["จ","อ","พ","พฤ","ศ","ส","อา"];
+
+  function buildCal(){
+    const daysInMonth = new Date(vy, vm, 0).getDate();
+    const firstDay = new Date(vy, vm-1, 1).getDay();
+    const offset = (firstDay+6)%7; // Mon-start
+    const canNext = vy<ty || (vy===ty && vm<tm);
+    let cells = "";
+    for(let i=0;i<offset;i++) cells += `<div class="cal-d empty"></div>`;
+    for(let d=1;d<=daysInMonth;d++){
+      const ds = `${vy}-${String(vm).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      const isSel = ds===ST.date;
+      const isTod = ds===today;
+      const isFut = ds>today;
+      const cls = `cal-d${isSel?" sel":""}${isTod&&!isSel?" today":""}${isFut?" future":""}`;
+      cells += `<div class="${cls}" ${!isFut?`onclick="calSelect('${ds}')"`:""}>${d}</div>`;
+    }
+    document.querySelector("#cal-modal").innerHTML = `
+      <div class="modal-hd"></div>
+      <div class="cal-hd">
+        <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+        <div class="cal-month-lbl">${fmtMonth(vy,vm)}</div>
+        <button class="cal-nav-btn" ${!canNext?"disabled":""} onclick="calNav(1)">›</button>
+      </div>
+      <div class="cal-grid">
+        ${dayHdr.map(d=>`<div class="cal-dh">${d}</div>`).join("")}
+        ${cells}
+      </div>
+      <button class="btn bw btn-full" style="margin-top:12px" onclick="closeModal()">${t("btn_cancel")}</button>
+    `;
+  }
+
+  window.calNav = function(delta){
+    vm += delta;
+    if(vm>12){vm=1;vy++;}
+    if(vm<1){vm=12;vy--;}
+    buildCal();
+  };
+  window.calSelect = function(ds){
+    ST.date=ds; ST.filter="all"; ST.report=[]; ST.perf=[];
+    closeModal();
+    updateDateNav();
+    loadAndRender();
+  };
+
+  const ov = document.createElement("div");
+  ov.className="overlay"; ov.id="ov";
+  ov.innerHTML=`<div class="modal" id="cal-modal"></div>`;
+  ov.addEventListener("click", e=>{ if(e.target===ov) closeModal(); });
+  document.body.appendChild(ov);
+  buildCal();
+}
+
+// ─── LOAD DATA ───────────────────────────────────────
+async function loadAndRender(){
+  const v = getView();
+  if(v==="mgr_staff"){  await loadStaffReport();  return; }
+  showLoader();
+  const isFD  = USER.role==="frontdesk";
+  const isMgr = USER.role==="manager";
+  const role  = (USER.role==="admin") ? "supervisor" : USER.role;
+  const needStaff = (USER.role==="supervisor"||USER.role==="admin") && ST.staff.length===0;
+  const fetches = [
+    gasGet({ action:"getRooms", role, staffId:USER.staffId, date:ST.date, showAll: (isFD||isMgr) || undefined }),
+    needStaff ? gasGet({ action:"getStaff" }) : Promise.resolve(null)
+  ];
+  const [res, sr] = await Promise.all(fetches);
+  if(!res.success){ showError(res.message); return; }
+  ST.rooms = res.rooms||[];
+  if(sr && sr.success) ST.staff = sr.staff||[];
+  renderContent();
+}
+
+function getStaffDateRange(){
+  const mode = ST.staffMode||"30d";
+  if(mode==="7d"||mode==="30d"||mode==="90d"){
+    const days = mode==="7d"?7:mode==="30d"?30:90;
+    const end = ST.date;
+    const dt = new Date(ST.date); dt.setDate(dt.getDate()-(days-1));
+    const start = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")}`;
+    return { start, end };
+  }
+  if(mode==="month"){
+    const y = ST.staffYear || new Date().getFullYear();
+    const m = ST.staffMonth || (new Date().getMonth()+1);
+    const start = `${y}-${String(m).padStart(2,"0")}-01`;
+    const lastDay = new Date(y, m, 0).getDate();
+    const end   = `${y}-${String(m).padStart(2,"0")}-${lastDay}`;
+    return { start, end };
+  }
+  if(mode==="year"){
+    const y = ST.staffYear || new Date().getFullYear();
+    return { start:`${y}-01-01`, end:`${y}-12-31` };
+  }
+  return { start:"2020-01-01", end:ST.date };
+}
+
+async function loadStaffReport(){
+  showLoader();
+  const { start, end } = getStaffDateRange();
+  const res = await gasGet({ action:"getStaffReport", startDate:start, endDate:end });
+  if(res.success) ST.staffReport = res.byStaff||[];
+  renderContent();
+}
+
+
+function showLoader(){
+  document.getElementById("content").innerHTML =
+    `<div class="loader"><div class="spinner"></div><span style="font-size:13px;color:var(--mu)">${t("loading")}</span></div>`;
+}
+
+let _retryFn = null;
+function showError(msg){
+  document.getElementById("content").innerHTML = `
+    <div style="text-align:center;padding:44px 16px">
+      <div style="font-size:32px;margin-bottom:12px">⚠</div>
+      <div style="font-size:14px;color:var(--tx);margin-bottom:16px;line-height:1.5">${msg||t("err_load")}</div>
+      <button class="btn bg" onclick="_retryFn&&_retryFn()">↺ ${t("btn_retry")}</button>
+    </div>`;
+  _retryFn = loadAndRender;
+}
+
+// ─── RENDER ──────────────────────────────────────────
+function renderContent(){
+  renderTabs();
+  document.getElementById("content").innerHTML = renderView(getView());
+  const v = getView();
+  if(["sup_perf","sup_rooms","hk_rooms","fd_status","mgr_dash","mgr_all","adm_rooms","adm_inspect"].includes(v)) startLiveTimer();
+  else stopLiveTimer();
+}
+function renderView(v){
+  switch(v){
+    case "sup_rooms":     return vSupRooms();
+    case "sup_assign":    return vSupAssign();
+    case "sup_perf":      return vSupPerf();
+    case "hk_rooms":      return vHkRooms();
+    case "fd_status":     return vFdStatus();
+    case "mgr_dash":      return vMgrDash();
+    case "mgr_all":       return vMgrAll();
+    case "mgr_staff":     return vMgrStaff();
+    case "adm_rooms":     return vAdmRooms();
+    case "adm_inspect":   return vAdmInspect();
+    default: return `<div class="empty"><div class="empty-ic">···</div>${t("under_dev")}</div>`;
+  }
+}
+
+// ─── SUPERVISOR: ห้องทั้งหมด ─────────────────────────
+function vSupRooms(){
+  const all = getMergedRooms();
+  const sl  = SL();
+  const flist = ["all","unassigned","pending","cleaning","done","passed"];
+
+  // secondary filters
+  const floors = [...new Set(all.filter(r=>r.floor).map(r=>r.floor))].sort((a,b)=>a-b);
+  const hks    = [...new Set(all.filter(r=>r.assignedName).map(r=>r.assignedName))].sort();
+  const selSt  = `width:100%;padding:8px 28px 8px 10px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--tx);background:var(--wh);outline:none;-webkit-appearance:none;cursor:pointer`;
+
+  let shown = ST.filter==="all" ? all : all.filter(r=>r.status===ST.filter);
+  if(ST.supFloor) shown = shown.filter(r=>String(r.floor)===String(ST.supFloor));
+  if(ST.supHk)    shown = shown.filter(r=>r.assignedName===ST.supHk);
+
+  return `
+    <div class="chips">
+      ${flist.map(f=>`<div class="chip ${ST.filter===f?"on":""}" onclick="setF('${f}')">${f==="all"?t("fd_filter_all"):sl[f]} (${f==="all"?all.length:all.filter(r=>r.status===f).length})</div>`).join("")}
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setSupFloor(this.value)">
+          <option value="">${t("fd_all_floors")}</option>
+          ${floors.map(f=>`<option value="${f}" ${ST.supFloor==f?"selected":""}>${t("floor")} ${f}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setSupHk(this.value)">
+          <option value="">${t("fd_all_hk")}</option>
+          ${hks.map(n=>`<option value="${n}" ${ST.supHk===n?"selected":""}>${n}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--mu);margin-bottom:8px">${shown.length} ${t("rooms_count")}</div>
+    ${shown.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("no_rooms_status")}</div>`:""}
+    <div class="card-list">
+    ${shown.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        ${r.note?`<div class="${r.status==="pending"?"rnote":"rnote-ok"}">${r.note}</div>`:""}
+        <div class="rinfo">${t("housekeeper")}: <b>${r.assignedName||"—"}</b>
+          ${r.status==="cleaning"&&r.startTime?` · <span data-elapsed="${r.startTime}">—</span>`:""}
+          ${r.status==="done"&&r.startTime&&r.endTime?` · ${t("duration_lbl")} <b>${duration(r.startTime,r.endTime)}</b>`:""}
+        </div>
+        <div class="acts">
+          ${r.status==="done"?`<button class="btn bg" onclick="openInspect('${r.id}')">${t("btn_inspect")}</button>`:""}
+          ${isToday()?`<button class="btn bw" onclick="openAssign('${r.id}')">${t("btn_reassign")}</button>`:""}
+        </div>
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+// ─── SUPERVISOR: Assign ──────────────────────────────
+function vSupAssign(){
+  if(isPast())
+    return `<div class="empty"><div class="empty-ic">···</div>${t("cur_date_only")}</div>`;
+  const sheetMap={}; ST.rooms.forEach(r=>{ sheetMap[r.id]=r; });
+  const allRooms  = allHotelRooms().map(r=>sheetMap[r.id]||{...r,status:"unassigned",assignedTo:"",assignedName:""});
+  const unassigned = allRooms.filter(r=>r.status==="unassigned");
+  return `
+    ${isToday()?`<button class="btn bg btn-lg" style="margin-bottom:12px" onclick="openAutoAssign()">${t("auto_assign_btn")}</button>`:""}
+    <div class="sec">${t("sec_unassigned")} (${unassigned.length})</div>
+    ${unassigned.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("all_assigned")}</div>`:""}
+    <div class="card-list">
+    ${unassigned.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${t("cur_hk")}: <b>${r.assignedName||"—"}</b></div>
+        <div class="acts"><button class="btn bg" onclick="openAssign('${r.id}')">${t("btn_assign")}</button></div>
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+// ─── SUPERVISOR: เวลาทำงาน ───────────────────────────
+function vSupPerf(){
+  const rooms = ST.rooms;
+  if(rooms.length===0)
+    return `<div class="empty"><div class="empty-ic">···</div>${isPast()?t("no_data_date"):t("no_data")}</div>`;
+
+  const cleaning  = rooms.filter(r=>r.status==="cleaning"&&r.startTime);
+  const completed = rooms.filter(r=>["done","passed"].includes(r.status)&&r.startTime&&r.endTime);
+
+  const byStaff = {};
+  completed.forEach(r=>{
+    const n = r.assignedName||"—";
+    if(!byStaff[n]) byStaff[n]={ name:n, rooms:[], totalMs:0 };
+    byStaff[n].rooms.push(r);
+    byStaff[n].totalMs += (r.endTime - r.startTime);
+  });
+  const staffArr = Object.values(byStaff).sort((a,b)=>(a.totalMs/a.rooms.length)-(b.totalMs/b.rooms.length));
+
+  return `
+    <div class="sec"><span class="live-dot"></span>${t("sec_realtime")} (${cleaning.length} ${t("rooms_count")})</div>
+    ${cleaning.length===0?`<div style="font-size:13px;color:var(--mu);padding:4px 0 10px">${t("no_cleaning")}</div>`:""}
+    ${cleaning.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${r.assignedName||"—"} · ${t("started")} <b data-elapsed="${r.startTime}">—</b></div>
+      </div>
+    `).join("")}
+
+    <div class="sec" style="margin-top:6px">${t("sec_completed")} (${completed.length} ${t("rooms_count")})</div>
+    ${staffArr.length===0?`<div style="font-size:13px;color:var(--mu);padding:4px 0 10px">${t("no_rooms_done")}</div>`:""}
+    ${staffArr.map(s=>{
+      const avgMin = Math.round(s.totalMs/s.rooms.length/60000);
+      return `<div class="card">
+        <div class="card-hd" style="margin-bottom:10px">
+          <div>
+            <div style="font-size:15px;font-weight:700">${s.name}</div>
+            <div class="rfloor">${s.rooms.length} ${t("room_count_today")}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="perf-avg">${avgMin}</div>
+            <div class="perf-sub">${t("min_avg_lbl")}</div>
+          </div>
+        </div>
+        ${s.rooms.map(r=>`
+          <div class="perf-room-row">
+            <span style="font-weight:600">${t("room_prefix")} ${r.id}</span>
+            <span style="color:var(--mu)">${duration(r.startTime,r.endTime)}</span>
+          </div>
+        `).join("")}
+      </div>`;
+    }).join("")}
+  `;
+}
+
+// ─── HOUSEKEEPER ─────────────────────────────────────
+function vHkRooms(){
+  const rooms = ST.rooms;
+  const done  = rooms.filter(r=>["done","passed"].includes(r.status)).length;
+  const pct   = rooms.length ? Math.round(done/rooms.length*100) : 0;
+  return `
+    <div class="stats">
+      <div class="stat"><div class="stat-n" style="color:var(--saged)">${done}</div><div class="stat-l">${t("completed_lbl")}</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--o)">${rooms.filter(r=>r.status==="cleaning").length}</div><div class="stat-l">${SL()["cleaning"]}</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--mu)">${rooms.filter(r=>r.status==="pending").length}</div><div class="stat-l">${SL()["pending"]}</div></div>
+    </div>
+    <div class="prog">
+      <div class="prog-hd"><span>${t("sec_progress")}</span><span>${done}/${rooms.length} (${pct}%)</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>
+    ${rooms.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("no_rooms")}</div>`:""}
+    <div class="card-list">
+    ${rooms.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        ${r.note?`<div class="rnote">${r.note}</div>`:""}
+        ${r.status==="cleaning"&&r.startTime?`<div class="rinfo">${t("started")} <b data-elapsed="${r.startTime}">—</b></div>`:""}
+        ${r.status==="done"&&r.startTime&&r.endTime?`<div class="rinfo">${t("duration_lbl")} <b>${duration(r.startTime,r.endTime)}</b></div>`:""}
+        <div class="acts">
+          ${r.status==="pending"  &&isToday()?`<button class="btn bg"  onclick="doStatus('${r.id}','cleaning')">${t("btn_start")}</button>`:""}
+          ${r.status==="cleaning" &&isToday()?`<button class="btn bb"  onclick="doStatus('${r.id}','done')">${t("btn_done")}</button>`:""}
+          ${r.status==="done"    ?`<span style="font-size:12px;color:var(--y)">${t("waiting_inspect")}</span>`:""}
+          ${r.status==="passed"  ?`<span style="font-size:12px;color:var(--saged)">${t("inspection_pass")}</span>`:""}
+        </div>
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+// ─── MANAGER: Dashboard ──────────────────────────────
+function vMgrDash(){
+  const rooms = getMergedRooms();
+  const total = rooms.length;
+  const cnt = {unassigned:0,pending:0,cleaning:0,done:0,passed:0};
+  rooms.forEach(r=>{ if(cnt[r.status]!==undefined) cnt[r.status]++; });
+  const finished = cnt.passed;
+  const pct = total ? Math.round(finished/total*100) : 0;
+
+  const segs = [
+    {k:"passed",     c:"#A8B59A", get label(){ return SL()["passed"]; }},
+    {k:"done",       c:"#1A56DB", get label(){ return SL()["done"]; }},
+    {k:"cleaning",   c:"#C45C10", get label(){ return SL()["cleaning"]; }},
+    {k:"pending",    c:"#D8D4CD", get label(){ return SL()["pending"]; }},
+    {k:"unassigned", c:"#B8C0CC", get label(){ return SL()["unassigned"]; }},
+  ];
+  let cumPct = 0;
+  const gradParts = segs.map(s=>{
+    const p = total ? (cnt[s.k]||0)/total*100 : 0;
+    const from = cumPct; cumPct += p;
+    return `${s.c} ${from.toFixed(1)}% ${cumPct.toFixed(1)}%`;
+  }).join(", ");
+
+  const byS = {};
+  rooms.forEach(r=>{
+    if(!r.assignedName) return;
+    byS[r.assignedName] = byS[r.assignedName]||{name:r.assignedName,done:0,total:0};
+    byS[r.assignedName].total++;
+    if(["done","passed"].includes(r.status)) byS[r.assignedName].done++;
+  });
+  const sarr = Object.values(byS).sort((a,b)=>b.done-a.done);
+  const maxT = Math.max(...sarr.map(s=>s.total),1);
+
+  const byF = {};
+  rooms.forEach(r=>{
+    byF[r.floor] = byF[r.floor]||{f:r.floor,done:0,total:0};
+    byF[r.floor].total++;
+    if(["done","passed"].includes(r.status)) byF[r.floor].done++;
+  });
+  const farr = Object.values(byF).sort((a,b)=>a.f-b.f);
+
+  return `
+    ${(isPast()&&total===0)?`<div class="empty"><div class="empty-ic">···</div>${t("no_data_date")}</div>`:`
+
+    <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mu);margin-bottom:8px">${fmtDateTH(ST.date)}</div>
+
+    <div class="donut-wrap">
+      <div class="donut" style="background:conic-gradient(${gradParts})">
+        <div class="donut-hole">
+          <div class="donut-pct">${pct}%</div>
+          <div class="donut-sub">${t("donut_done")}</div>
+        </div>
+      </div>
+      <div class="legend">
+        ${segs.map(s=>`
+          <div class="leg-item">
+            <div class="leg-dot" style="background:${s.c}"></div>
+            <span>${s.label}</span>
+            <span class="leg-val">${cnt[s.k]||0}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:4px">
+      <div class="stat"><div class="stat-n" style="color:var(--saged)">${finished}</div><div class="stat-l">${SL()["passed"]}</div></div>
+      <div class="stat"><div class="stat-n" style="color:var(--o)">${cnt.cleaning+cnt.done}</div><div class="stat-l">${t("in_progress_section")}</div></div>
+      <div class="stat"><div class="stat-n" style="color:#555">${cnt.pending}</div><div class="stat-l">${SL()["pending"]}</div></div>
+      <div class="stat"><div class="stat-n" style="color:#3B4B6B">${cnt.unassigned}</div><div class="stat-l">${SL()["unassigned"]}</div></div>
+    </div>
+
+    <div class="prog" style="margin-bottom:16px">
+      <div class="prog-hd"><span>${t("overview")} ${total} ${t("rooms_count")}</span><span>${finished} ${t("rooms_done_count")}</span></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>
+
+    <div style="border-top:2px solid var(--br);margin-bottom:12px"></div>
+
+    <div class="sec">${t("sec_by_staff")}</div>
+    ${sarr.length===0?`<div style="font-size:13px;color:var(--mu);padding:8px 0">${t("no_assign_yet")}</div>`:""}
+    ${sarr.map(s=>`
+      <div class="bar-row">
+        <div class="bar-lbl">${s.name}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.round(s.done/maxT*100)}%"></div></div>
+        <div class="bar-val">${s.done}/${s.total}</div>
+      </div>
+    `).join("")}
+
+    <div class="sec" style="margin-top:14px">${t("sec_by_floor")}</div>
+    ${farr.map(f=>{
+      const p = Math.round(f.done/f.total*100);
+      return `<div class="prog">
+        <div class="prog-hd"><span>${t("floor")} ${f.f}</span><span style="color:${p===100?"var(--saged)":p>50?"var(--g)":"var(--mu)"}">${f.done}/${f.total} (${p}%)</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${p}%;background:${p===100?"var(--saged)":p>50?"var(--g)":"var(--o)"}"></div></div>
+      </div>`;
+    }).join("")}
+    `}
+  `;
+}
+
+// ─── MANAGER: All Rooms ──────────────────────────────
+function vMgrAll(){
+  const all   = getMergedRooms();
+  const sl    = SL();
+  const flist = ["all","unassigned","pending","cleaning","done","passed"];
+  const floors = [...new Set(all.filter(r=>r.floor).map(r=>r.floor))].sort((a,b)=>a-b);
+  const hks    = [...new Set(all.filter(r=>r.assignedName).map(r=>r.assignedName))].sort();
+  const selSt  = `width:100%;padding:8px 28px 8px 10px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--tx);background:var(--wh);outline:none;-webkit-appearance:none;cursor:pointer`;
+
+  let shown = ST.filter==="all" ? all : all.filter(r=>r.status===ST.filter);
+  if(ST.supFloor) shown = shown.filter(r=>String(r.floor)===String(ST.supFloor));
+  if(ST.supHk)    shown = shown.filter(r=>r.assignedName===ST.supHk);
+
+  return `
+    <div class="chips">
+      ${flist.map(f=>`<div class="chip ${ST.filter===f?"on":""}" onclick="setF('${f}')">${f==="all"?t("fd_filter_all"):sl[f]} (${f==="all"?all.length:all.filter(r=>r.status===f).length})</div>`).join("")}
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setSupFloor(this.value)">
+          <option value="">${t("fd_all_floors")}</option>
+          ${floors.map(f=>`<option value="${f}" ${ST.supFloor==f?"selected":""}>${t("floor")} ${f}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setSupHk(this.value)">
+          <option value="">${t("fd_all_hk")}</option>
+          ${hks.map(n=>`<option value="${n}" ${ST.supHk===n?"selected":""}>${n}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--mu);margin-bottom:8px">${shown.length} ${t("rooms_count")}</div>
+    ${shown.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("no_data")}</div>`:""}
+    <div class="card-list">
+    ${shown.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${t("housekeeper")}: <b>${r.assignedName||"—"}</b>
+          ${r.status==="cleaning"&&r.startTime?` · <span data-elapsed="${r.startTime}">—</span>`:""}
+          ${r.startTime&&r.endTime?` · ${duration(r.startTime,r.endTime)}`:""}
+        </div>
+        ${r.note?`<div class="rnote-ok">${r.note}</div>`:""}
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+
+
+// Returns merged 250-room list for today, or raw sheet data for past dates
+function getMergedRooms(){
+  if(!isToday()) return ST.rooms; // past date: only real data
+  const sheetMap={};
+  ST.rooms.forEach(r=>{ sheetMap[r.id]=r; });
+  return allHotelRooms().map(r=>sheetMap[r.id]||{
+    ...r, date:ST.date, status:"unassigned", assignedTo:"", assignedName:"",
+    startTime:null, endTime:null, note:""
+  });
+}
+
+// generate full 250-room hotel list (floors 8-38, no 13, no *4)
+function allHotelRooms(){
+  const rooms=[];
+  for(let f=8;f<=38;f++){
+    if(f===13) continue;
+    for(let n=1;n<=9;n++){
+      const id=String(f)+String(n).padStart(2,"0");
+      if(id.endsWith("4")) continue;
+      rooms.push({id,floor:f});
+    }
+  }
+  return rooms;
+}
+
+// ─── FRONT DESK: Room Status Board ───────────────────
+function vFdStatus(){
+  // Merge GAS data with full hotel list — FD always sees all 250 rooms
+  const sheetMap={};
+  ST.rooms.forEach(r=>{ sheetMap[r.id]=r; });
+  const all = allHotelRooms().map(r=>sheetMap[r.id]||{
+    ...r, date:ST.date, status:"unassigned", assignedTo:"", assignedName:"",
+    startTime:null, endTime:null, note:""
+  });
+  const sl  = SL();
+
+  // Build floor & housekeeper option lists from data
+  const floors = [...new Set(all.map(r=>r.floor))].sort((a,b)=>a-b);
+  const hks    = [...new Set(all.filter(r=>r.assignedName).map(r=>r.assignedName))].sort();
+
+  // Status chips count (before secondary filters)
+  const chips = [
+    { k:"all",        label:t("tab_all_rooms"), count: all.length },
+    { k:"unassigned", label:sl.unassigned,      count: all.filter(r=>r.status==="unassigned").length },
+    { k:"pending",    label:sl.pending,         count: all.filter(r=>r.status==="pending").length },
+    { k:"cleaning",   label:sl.cleaning,        count: all.filter(r=>["cleaning","done"].includes(r.status)).length },
+    { k:"passed",     label:sl.passed,          count: all.filter(r=>r.status==="passed").length },
+  ];
+
+  // Apply all 3 filters together
+  let shown = ST.filter==="all"      ? all :
+              ST.filter==="cleaning" ? all.filter(r=>["cleaning","done"].includes(r.status)) :
+                                       all.filter(r=>r.status===ST.filter);
+  if(ST.fdFloor) shown = shown.filter(r=>String(r.floor)===String(ST.fdFloor));
+  if(ST.fdHk)    shown = shown.filter(r=>r.assignedName===ST.fdHk);
+
+  const selSt = `width:100%;padding:8px 28px 8px 10px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--tx);background:var(--wh);outline:none;-webkit-appearance:none;cursor:pointer`;
+
+  return `
+    <div class="chips">
+      ${chips.map(c=>`<div class="chip ${ST.filter===c.k?"on":""}" onclick="setF('${c.k}')">${c.label} (${c.count})</div>`).join("")}
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setFdFloor(this.value)">
+          <option value="">${t("fd_all_floors")}</option>
+          ${floors.map(f=>`<option value="${f}" ${ST.fdFloor==f?"selected":""}>${t("floor")} ${f}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+      <div class="sw" style="flex:1;position:relative">
+        <select style="${selSt}" onchange="setFdHk(this.value)">
+          <option value="">${t("fd_all_hk")}</option>
+          ${hks.map(n=>`<option value="${n}" ${ST.fdHk===n?"selected":""}>${n}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:11px">▾</span>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--mu);margin-bottom:8px">${shown.length} ${t("rooms_count")}</div>
+    ${shown.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("no_data")}</div>`:""}
+    <div class="card-list">
+    ${shown.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${t("housekeeper")}: <b>${r.assignedName||"—"}</b>${
+          r.status==="cleaning"&&r.startTime ? ` · <span data-elapsed="${r.startTime}">—</span>` :
+          r.startTime&&r.endTime             ? ` · ${duration(r.startTime,r.endTime)}` : ""
+        }</div>
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+// ─── MANAGER: สถิติพนักงาน (flexible date range) ────
+function vMgrStaff(){
+  const data = ST.staffReport||[];
+  const mode = ST.staffMode||"30d";
+
+  // Period label
+  const { start, end } = getStaffDateRange();
+  const periodLabel = (()=>{
+    if(mode==="month") return fmtMonth(+(ST.staffYear||new Date().getFullYear()), +(ST.staffMonth||(new Date().getMonth()+1)));
+    if(mode==="year"){
+      const y = +(ST.staffYear||new Date().getFullYear());
+      return LANG==="th"?`ปี ${y+543}`:`Year ${y}`;
+    }
+    return `${fmtDateTH(start)} – ${fmtDateTH(end)}`;
+  })();
+
+  const curYear  = new Date().getFullYear();
+  const years    = [curYear-2, curYear-1, curYear];
+  const selYear  = +(ST.staffYear||curYear);
+  const selMonth = +(ST.staffMonth||(new Date().getMonth()+1));
+  const moNames  = LANG==="en"
+    ? ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+    : LANG==="my"
+      ? ["","ဇန်","ဖေဖ","မတ်","ဧပြီ","မေ","ဇွန်","ဇူ","ဩဂ","စက်","အောက်","နို","ဒီ"]
+      : ["","ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+
+  const selSt = `padding:6px 26px 6px 10px;border:1.5px solid var(--br);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:12px;color:var(--tx);background:var(--wh);outline:none;-webkit-appearance:none;cursor:pointer;width:100%`;
+
+  const modeBtns = `<div class="rpt-mode" style="flex-wrap:wrap">
+    ${["7d","30d","90d","month","year"].map(m=>{
+      const lbl = m==="7d"?"7 วัน":m==="30d"?"30 วัน":m==="90d"?"90 วัน":m==="month"?(LANG==="en"?"Month":"เดือน"):(LANG==="en"?"Year":"ปี");
+      return `<button class="rpt-mode-btn ${mode===m?"on":""}" onclick="ST.staffMode='${m}';ST.staffReport=[];loadStaffReport()">${lbl}</button>`;
+    }).join("")}
+  </div>`;
+
+  const datePickers = mode==="month" ? `
+    <div style="display:flex;gap:8px;margin:6px 0 10px">
+      <div style="flex:1;position:relative">
+        <select style="${selSt}" onchange="ST.staffMonth=+this.value;ST.staffReport=[];loadStaffReport()">
+          ${moNames.slice(1).map((n,i)=>`<option value="${i+1}" ${selMonth===i+1?"selected":""}>${n}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:10px">▾</span>
+      </div>
+      <div style="flex:1;position:relative">
+        <select style="${selSt}" onchange="ST.staffYear=+this.value;ST.staffReport=[];loadStaffReport()">
+          ${years.map(y=>`<option value="${y}" ${selYear===y?"selected":""}>${LANG==="th"?y+543:y}</option>`).join("")}
+        </select>
+        <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:10px">▾</span>
+      </div>
+    </div>` :
+    mode==="year" ? `
+    <div style="margin:6px 0 10px;position:relative;max-width:140px">
+      <select style="${selSt}" onchange="ST.staffYear=+this.value;ST.staffReport=[];loadStaffReport()">
+        ${years.map(y=>`<option value="${y}" ${selYear===y?"selected":""}>${LANG==="th"?y+543:y}</option>`).join("")}
+      </select>
+      <span style="position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--mu);font-size:10px">▾</span>
+    </div>` : "";
+
+  if(data.length===0) return `
+    ${modeBtns}
+    ${datePickers}
+    <div class="loader" style="padding:32px"><div class="spinner"></div></div>`;
+
+  // Sorting & stats
+  const sorted   = [...data].sort((a,b)=>b.completedRooms-a.completedRooms||a.avgDuration-b.avgDuration);
+  const maxRooms = Math.max(...data.map(s=>s.completedRooms||0), 1);
+  const maxAvg   = Math.max(...data.map(s=>s.avgDuration||0), 1);
+  const top3     = sorted.slice(0, Math.min(3, sorted.length));
+  const n        = sorted.length;
+  const bottom3  = n >= 4 ? sorted.slice(Math.max(n-3, top3.length)) : [];
+
+  function perfCard(s, rank, type){
+    const avgMin = s.avgDuration>0 ? Math.round(s.avgDuration/60000) : 0;
+    const pct    = s.totalRooms>0  ? Math.round(s.completedRooms/s.totalRooms*100) : 0;
+    const bg     = type==="top"  ? "rgba(200,154,91,.1)"  : "rgba(196,92,16,.08)";
+    const bdr    = type==="top"  ? "rgba(200,154,91,.4)"  : "rgba(196,92,16,.3)";
+    const medal  = rank===1?"🥇":rank===2?"🥈":rank===3?"🥉":"";
+    const rankCol= type==="top"  ? "var(--g)" : "var(--o)";
+    return `<div style="background:${bg};border:1.5px solid ${bdr};border-radius:10px;padding:10px 11px;flex:1;min-width:0">
+      <div style="font-size:11px;font-weight:700;color:${rankCol};margin-bottom:3px">${medal} #${rank}</div>
+      <div style="font-size:12px;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
+      <div style="font-size:10px;color:var(--mu);margin-top:2px">${s.completedRooms} ${LANG==="en"?"rooms":"ห้อง"} · ${pct}%</div>
+      ${avgMin>0?`<div style="font-size:10px;color:${avgMin>45?"var(--o)":"var(--saged)"};margin-top:1px">⏱ ${avgMin}'</div>`:""}
+    </div>`;
+  }
+
+  return `
+    ${modeBtns}
+    ${datePickers}
+    <div style="font-size:11px;color:var(--mu);margin:4px 0 12px;font-weight:600">${periodLabel}</div>
+
+    <div class="sec" style="margin-top:0">🏆 Top Performer</div>
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      ${top3.map((s,i)=>perfCard(s,i+1,"top")).join("")}
+    </div>
+
+    ${bottom3.length>0?`
+    <div class="sec">⚠ Bottom Performer</div>
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      ${bottom3.map((s,i)=>perfCard(s,n-bottom3.length+i+1,"bot")).join("")}
+    </div>`:""}
+
+    <div style="height:1px;background:var(--br);margin:4px 0 14px"></div>
+
+    <div class="sec" style="margin-top:0;display:flex;align-items:center;justify-content:space-between">
+      <span>${LANG==="en"?"Rooms Completed":"ห้องที่ทำเสร็จ"}</span>
+      <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--g);font-weight:700">
+        <span style="width:10px;height:10px;border-radius:3px;background:var(--g);display:inline-block"></span>${LANG==="en"?"rooms done":"จำนวนห้อง"}
+      </span>
+    </div>
+    ${sorted.map(s=>`
+      <div class="bar-row">
+        <div class="bar-lbl" style="min-width:64px">${s.name}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${maxRooms?Math.round(s.completedRooms/maxRooms*100):0}%"></div></div>
+        <div class="bar-val">${s.completedRooms}/${s.totalRooms}</div>
+      </div>
+    `).join("")}
+
+    <div style="height:1px;background:var(--br);margin:14px 0 10px"></div>
+
+    <div class="sec" style="margin-top:0;display:flex;align-items:center;justify-content:space-between">
+      <span>${LANG==="en"?"Avg. Time / Room":"เวลาเฉลี่ยต่อห้อง"}</span>
+      <span style="display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700">
+        <span style="display:flex;align-items:center;gap:3px;color:var(--saged)"><span style="width:10px;height:10px;border-radius:3px;background:var(--saged);display:inline-block"></span>≤45'</span>
+        <span style="display:flex;align-items:center;gap:3px;color:var(--o)"><span style="width:10px;height:10px;border-radius:3px;background:var(--o);display:inline-block"></span>&gt;45'</span>
+      </span>
+    </div>
+    ${[...data].filter(s=>s.avgDuration>0).sort((a,b)=>a.avgDuration-b.avgDuration).map(s=>{
+      const avgMin = Math.round(s.avgDuration/60000);
+      const col    = avgMin>45?"var(--o)":"var(--saged)";
+      return `<div class="bar-row">
+        <div class="bar-lbl" style="min-width:64px">${s.name}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.round(s.avgDuration/maxAvg*100)}%;background:${col}"></div></div>
+        <div class="bar-val" style="color:${col}">${avgMin}'</div>
+      </div>`;
+    }).join("")}
+  `;
+}
+
+
+// ─── ADMIN: ห้องทั้งหมด (with override) ─────────────
+function vAdmRooms(){
+  const all   = ST.rooms;
+  const flist = ["all","pending","cleaning","done","passed"];
+  const shown = ST.filter==="all" ? all : all.filter(r=>r.status===ST.filter);
+  if(all.length===0 && isToday())
+    return `<div class="empty"><div class="empty-ic">···</div><div style="margin-bottom:12px">${t("no_work_today")}</div>
+      <button class="btn bg" onclick="doInitDaily()">${t("btn_create")}</button></div>`;
+  return `
+    <div class="chips">
+      ${flist.map(f=>`<div class="chip ${ST.filter===f?"on":""}" onclick="setF('${f}')">${f==="all"?t("fd_filter_all"):SL()[f]} (${f==="all"?all.length:all.filter(r=>r.status===f).length})</div>`).join("")}
+    </div>
+    ${shown.length===0?`<div class="empty"><div class="empty-ic">···</div>${t("no_rooms_status")}</div>`:""}
+    <div class="card-list">
+    ${shown.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${t("housekeeper")}: <b>${r.assignedName||"—"}</b>
+          ${r.status==="cleaning"&&r.startTime?` · <span data-elapsed="${r.startTime}">—</span>`:""}
+          ${r.startTime&&r.endTime?` · ${duration(r.startTime,r.endTime)}`:""}
+        </div>
+        ${r.note?`<div class="rnote-ok">${r.note}</div>`:""}
+        <div class="acts">
+          ${r.status==="done"?`<button class="btn bg" onclick="openInspect('${r.id}')">${t("btn_inspect")}</button>`:""}
+          <button class="btn bw" onclick="openAssign('${r.id}')">${t("btn_reassign")}</button>
+          <button class="btn" style="background:#EDE9FE;color:#5B21B6;height:38px;padding:0 12px;border-radius:9px;font-size:12px;font-weight:700;border:none;cursor:pointer" onclick="openAdminOverride('${r.id}')">${t("btn_override")}</button>
+        </div>
+      </div>
+    `).join("")}
+    </div>
+  `;
+}
+
+// ─── ADMIN: ตรวจห้อง (rooms with status done) ───────
+function vAdmInspect(){
+  const rooms = ST.rooms.filter(r=>r.status==="done");
+  if(rooms.length===0)
+    return `<div class="empty"><div class="empty-ic">···</div>${t("no_inspect")}</div>`;
+  return `
+    <div class="sec">${t("sec_done_rooms")} (${rooms.length} ${t("rooms_count")})</div>
+    ${rooms.map(r=>`
+      <div class="card">
+        <div class="card-hd">
+          <div><div class="rnum">${r.id}</div><div class="rfloor">${t("floor")} ${r.floor}</div></div>
+          ${sb(r.status)}
+        </div>
+        <div class="rinfo">${t("housekeeper")}: <b>${r.assignedName||"—"}</b>
+          ${r.startTime&&r.endTime?` · ${t("duration_lbl")} <b>${duration(r.startTime,r.endTime)}</b>`:""}
+        </div>
+        <div class="acts">
+          <button class="btn bg" onclick="openInspect('${r.id}')">${t("btn_inspect")}</button>
+          <button class="btn" style="background:#EDE9FE;color:#5B21B6;height:38px;padding:0 12px;border-radius:9px;font-size:12px;font-weight:700;border:none;cursor:pointer" onclick="openAdminOverride('${r.id}')">${t("btn_override")}</button>
+        </div>
+      </div>
+    `).join("")}
+  `;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────
+async function doStatus(roomId, newStatus){
+  if(!isToday()){ toast(t("toast_no_edit_past"),"err"); return; }
+  const r = ST.rooms.find(x=>x.id===roomId);
+  if(!r) return;
+  r.status=newStatus;
+  if(newStatus==="cleaning") r.startTime=Date.now();
+  if(newStatus==="done")     r.endTime=Date.now();
+  renderContent();
+  await gasCall({ action:"updateStatus", roomId, status:newStatus, staffId:USER.staffId, staffName:USER.name, date:ST.date });
+  toast(newStatus==="cleaning"?t("toast_start_clean"):t("toast_sent_inspect"),"ok");
+  softRefresh();
+}
+
+
+async function doInitDaily(){
+  const res = await gasGet({ action:"initDaily", date:ST.date });
+  if(res.success){
+    toast(`${res.count} ${t("rooms_count")} ${t("toast_created")}`,"ok");
+    ST.staff=[];
+    await loadAndRender();
+  } else {
+    toast(res.message||t("err_generic"),"err");
+  }
+}
+
+
+function openAdminOverride(roomId){
+  const r = ST.rooms.find(x=>x.id===roomId);
+  const statuses = ["pending","cleaning","done","passed"];
+  const opts = ST.staff.length
+    ? ST.staff.map(s=>`<option value="${s.id}" data-name="${s.name}" data-nick="${s.nickname}" ${r.assignedTo===s.id?"selected":""}>${s.name} (${s.nickname})</option>`).join("")
+    : `<option value="${r.assignedTo||""}" selected>${r.assignedName||"—"}</option>`;
+  showModal(`
+    <div class="modal-hd"></div>
+    <div class="modal-room">${roomId}</div>
+    <div class="modal-fl">${t("floor")} ${r.floor} · Admin Override</div>
+    <div class="field">
+      <label>${t("change_to")}</label>
+      <div class="override-grid">
+        ${statuses.map(s=>`<button class="ov-btn ${r.status===s?"active":""}" onclick="this.closest('.override-grid').querySelectorAll('.ov-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.getElementById('ov-status').value='${s}'">${SL()[s]||s}</button>`).join("")}
+      </div>
+      <input type="hidden" id="ov-status" value="${r.status}"/>
+    </div>
+    <div class="field">
+      <label>${t("change_hk")}</label>
+      <div class="sw"><select id="ov-staff">${opts}</select></div>
+    </div>
+    <div class="field">
+      <label>${t("override_note")}</label>
+      <textarea id="ov-note" placeholder="${t("override_note")}...">${r.note||""}</textarea>
+    </div>
+    <button class="btn bg btn-full" style="background:#5B21B6" onclick="confirmAdminOverride('${roomId}')">${t("override_submit")}</button>
+    <button class="btn bw btn-full" onclick="closeModal()">${t("btn_cancel")}</button>
+  `);
+}
+
+async function confirmAdminOverride(roomId){
+  const status = document.getElementById("ov-status")?.value||"pending";
+  const sel    = document.getElementById("ov-staff");
+  const sid    = sel?.value||"";
+  const sname  = sel?.options[sel.selectedIndex]?.dataset.name||"";
+  const snick  = sel?.options[sel.selectedIndex]?.dataset.nick||sname;
+  const note   = document.getElementById("ov-note")?.value||"";
+  const r = ST.rooms.find(x=>x.id===roomId);
+  if(r){ r.status=status; if(sid){ r.assignedTo=sid; r.assignedName=snick; } r.note=note; }
+  closeModal(); renderContent();
+  await gasCall({ action:"adminSetStatus", roomId, status, assignedTo:sid, assignedName:sname, note, staffId:USER.staffId, staffName:USER.name, date:ST.date });
+  toast(`${t("btn_override")} ${t("room_prefix")} ${roomId} → ${SL()[status]||status}`,"ok");
+  softRefresh();
+}
+
+// ─── MODALS ──────────────────────────────────────────
+function openAssign(roomId){
+  const r    = ST.rooms.find(x=>x.id===roomId);
+  const opts = ST.staff.length
+    ? ST.staff.map(s=>`<option value="${s.id}" data-name="${s.name}" data-nick="${s.nickname}" ${r.assignedTo===s.id?"selected":""}>${s.name} (${s.nickname})</option>`).join("")
+    : `<option value="${r.assignedTo}" selected>${r.assignedName||"—"}</option>`;
+  showModal(`
+    <div class="modal-hd"></div>
+    <div class="modal-room">${roomId}</div>
+    <div class="modal-fl">${t("floor")} ${r.floor} · ${t("assign_room_title")}</div>
+    <div class="field">
+      <label>${t("select_hk")}</label>
+      <div class="sw"><select id="m-staff">${opts}</select></div>
+    </div>
+    <div class="field">
+      <label>${t("note_for_hk")}</label>
+      <textarea id="m-anote" placeholder="${t("note_lbl")}...">${r.note||""}</textarea>
+    </div>
+    <button class="btn bg btn-full" onclick="confirmAssign('${roomId}')">${t("btn_assign")}</button>
+    <button class="btn bw btn-full" onclick="closeModal()">${t("btn_cancel")}</button>
+  `);
+}
+
+async function confirmAssign(roomId){
+  const sel   = document.getElementById("m-staff");
+  const sid   = sel.value;
+  const sname = sel.options[sel.selectedIndex].dataset.name;
+  const snick = sel.options[sel.selectedIndex].dataset.nick||sname;
+  const note  = document.getElementById("m-anote")?.value||"";
+  const r = ST.rooms.find(x=>x.id===roomId);
+  if(r){ r.assignedTo=sid; r.assignedName=snick; r.status="pending"; r.note=note; }
+  closeModal(); renderContent();
+  await gasCall({ action:"assignRoom", roomId, staffId:sid, staffName:sname, note, supervisorId:USER.staffId, supervisorName:USER.name, date:ST.date });
+  toast(`${t("btn_assign")}: ${snick}`,"ok");
+  softRefresh();
+}
+
+function openInspect(roomId){
+  const r    = ST.rooms.find(x=>x.id===roomId);
+  const opts = ST.staff.length
+    ? ST.staff.map(s=>`<option value="${s.id}" data-name="${s.name}" data-nick="${s.nickname}" ${r.assignedTo===s.id?"selected":""}>${s.name} (${s.nickname})</option>`).join("")
+    : `<option value="${r.assignedTo}" selected>${r.assignedName}</option>`;
+  const durTxt = r.startTime&&r.endTime ? ` · ${t("duration_lbl")} ${duration(r.startTime,r.endTime)}` : "";
+  showModal(`
+    <div class="modal-hd"></div>
+    <div class="modal-room">${roomId}</div>
+    <div class="modal-fl">${t("floor")} ${r.floor} · ${t("done_by")} ${r.assignedName}${durTxt}</div>
+
+    <div class="inspect-pass">
+      <div class="field">
+        <label>${t("note_to_fd")}</label>
+        <textarea id="m-note-pass" placeholder="${t("note_lbl")}..."></textarea>
+      </div>
+      <button class="btn bg btn-full" style="margin-top:4px" onclick="confirmInspect('${roomId}','passed')">${t("btn_pass")}</button>
+    </div>
+
+    <div class="inspect-fail">
+      <div class="field">
+        <label>${t("reason_fail")}</label>
+        <textarea id="m-note-fail" placeholder="${t("reason_fail")}..."></textarea>
+      </div>
+      <div class="field">
+        <label>${t("assign_to")}</label>
+        <div class="sw"><select id="m-restaff">${opts}</select></div>
+      </div>
+      <button class="btn br2 btn-full" onclick="confirmInspect('${roomId}','failed')">${t("btn_fail")}</button>
+    </div>
+
+    <button class="btn bw btn-full" onclick="closeModal()">${t("btn_cancel")}</button>
+  `);
+}
+
+async function confirmInspect(roomId, result){
+  const note   = result==="passed"
+    ? (document.getElementById("m-note-pass")?.value||"")
+    : (document.getElementById("m-note-fail")?.value||"");
+  const sel    = document.getElementById("m-restaff");
+  const nsid   = sel?.value||"";
+  const nsname = sel?.options[sel.selectedIndex]?.dataset.name||"";
+  const nsnick = sel?.options[sel.selectedIndex]?.dataset.nick||nsname;
+  const r = ST.rooms.find(x=>x.id===roomId);
+  if(r){
+    if(result==="passed"){
+      r.status="passed"; r.note=note;
+    } else {
+      r.status="pending"; r.note=note||t("note_fail_default");
+      r.assignedTo=nsid; r.assignedName=nsnick;
+      r.startTime=null; r.endTime=null;
+    }
+  }
+  closeModal(); renderContent();
+  await gasCall({ action:"inspect", roomId, result, note, newStaffId:nsid, newStaffName:nsname, supervisorId:USER.staffId, supervisorName:USER.name, date:ST.date });
+  toast(result==="passed"?t("toast_pass_inspect"):t("toast_fail_inspect"), result==="passed"?"ok":"err");
+  softRefresh();
+}
+
+// ─── MODAL HELPERS ───────────────────────────────────
+function showModal(html){
+  const ov = document.createElement("div");
+  ov.className="overlay"; ov.id="ov";
+  ov.innerHTML=`<div class="modal">${html}</div>`;
+  ov.addEventListener("click", e=>{ if(e.target===ov) closeModal(); });
+  document.body.appendChild(ov);
+}
+function closeModal(){ document.getElementById("ov")?.remove(); }
+
+// ─── TOAST ───────────────────────────────────────────
+let _tt;
+function toast(msg, type=""){
+  const t = document.getElementById("toast");
+  t.textContent=msg; t.className="toast on "+type;
+  clearTimeout(_tt);
+  _tt = setTimeout(()=>t.className="toast", 2400);
+}
+
+// ─── AUTO ASSIGN ──────────────────────────────────────
+function openAutoAssign(){
+  if(!isToday()){ toast(t("toast_no_edit_past"),"err"); return; }
+  if(ST.staff.length===0){ toast(t("no_staff_available"),"err"); return; }
+
+  // Pending rooms = all 250 minus already-assigned
+  const sheetMap={};
+  ST.rooms.forEach(r=>{ sheetMap[r.id]=r; });
+  const pending = allHotelRooms().filter(r=>{
+    const s=sheetMap[r.id];
+    return !s || s.status==="unassigned";
+  });
+
+  // ST.staff already contains only active housekeepers (filtered by GAS getStaff)
+  const hks = ST.staff;
+  if(!hks.length){ toast(t("no_staff_available"),"err"); return; }
+
+  const base = Math.floor(pending.length/hks.length);
+  const rem  = pending.length % hks.length;
+
+  const inp = `background:var(--wh);border:1.5px solid var(--br);border-radius:8px;width:58px;text-align:center;font-size:15px;font-weight:700;padding:5px 4px;font-family:'Sarabun',sans-serif;color:var(--tx)`;
+
+  const rows = hks.map((h,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--br)">
+      <div style="flex:1;font-size:14px;font-weight:600">${h.name}<br><span style="font-size:11px;color:var(--mu);font-weight:400">${h.nickname||""}</span></div>
+      <input id="aa-${h.id}" type="number" min="0" max="${pending.length}" value="${i<rem?base+1:base}"
+        style="${inp}" oninput="aaUpdateTotal()"/>
+      <span style="font-size:12px;color:var(--mu);width:28px">${t("auto_assign_rooms")}</span>
+    </div>`).join("");
+
+  const html=`
+    <div class="modal-hd"></div>
+    <div class="modal-room">${t("auto_assign_title")}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:10px 0 4px">
+      <span style="font-size:13px;color:var(--mu)">${t("auto_assign_pending")}: <b style="color:var(--tx)">${pending.length}</b></span>
+      <button class="btn bw" style="font-size:12px;padding:5px 12px" onclick="aaDistribute(${pending.length},${hks.length})">${t("auto_assign_distribute")}</button>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--o);margin-bottom:8px" id="aa-warn"></div>
+    <div style="max-height:340px;overflow-y:auto">${rows}</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--br)">
+      <span style="font-size:13px;color:var(--mu)">${t("auto_assign_total")}: <b id="aa-total" style="color:var(--tx)">0</b> ${t("auto_assign_rooms")}</span>
+      <button class="btn bg" id="aa-go" onclick="doAutoAssign()">${t("auto_assign_go")}</button>
+    </div>`;
+
+  const ov=document.createElement("div"); ov.className="overlay"; ov.id="ov";
+  ov.innerHTML=`<div class="modal">${html}</div>`;
+  ov.addEventListener("click",e=>{ if(e.target===ov) closeModal(); });
+  document.body.appendChild(ov);
+  // Store pending+hks in closure-accessible vars
+  window._aaPending = pending;
+  window._aaHks     = hks;
+  aaUpdateTotal();
+}
+
+function aaUpdateTotal(){
+  const hks = window._aaHks||[];
+  let total=0;
+  hks.forEach(h=>{ total+=parseInt(document.getElementById("aa-"+h.id)?.value||0); });
+  const el=document.getElementById("aa-total"); if(el) el.textContent=total;
+  const pending=(window._aaPending||[]).length;
+  const warn=document.getElementById("aa-warn");
+  if(warn) warn.textContent = total>pending ? `⚠ เกิน ${total-pending} ห้อง — ลดลงก่อน` : "";
+}
+
+function aaDistribute(total,n){
+  const hks=window._aaHks||[];
+  const base=Math.floor(total/n), rem=total%n;
+  hks.forEach((h,i)=>{ const el=document.getElementById("aa-"+h.id); if(el) el.value=i<rem?base+1:base; });
+  aaUpdateTotal();
+}
+
+async function doAutoAssign(){
+  const pending = window._aaPending||[];
+  const hks     = window._aaHks||[];
+  let total=0;
+  hks.forEach(h=>{ total+=parseInt(document.getElementById("aa-"+h.id)?.value||0); });
+  if(total>pending.length){ toast(`⚠ เกิน ${total-pending.length} ห้อง`,"err"); return; }
+  if(total===0){ toast(t("no_assign_yet"),"err"); return; }
+
+  // Build assignments: distribute rooms in floor order
+  const assignments=[];
+  let roomIdx=0;
+  for(const h of hks){
+    const count=parseInt(document.getElementById("aa-"+h.id)?.value||0);
+    for(let i=0;i<count;i++){
+      if(roomIdx>=pending.length) break;
+      const r=pending[roomIdx++];
+      assignments.push({ roomId:r.id, floor:r.floor, staffId:h.id, staffName:h.name });
+    }
+  }
+
+  const btn=document.getElementById("aa-go");
+  if(btn){ btn.disabled=true; btn.textContent="กำลังมอบหมาย..."; }
+
+  closeModal();
+  showLoader();
+
+  // Optimistic update
+  const map={};
+  assignments.forEach(a=>{ map[a.roomId]=a; });
+  ST.rooms = allHotelRooms().map(r=>{
+    const existing=ST.rooms.find(x=>x.id===r.id);
+    const assign=map[r.id];
+    if(assign) return {...(existing||r), status:"pending", assignedTo:assign.staffId, assignedName:assign.staffName};
+    return existing||{...r, status:"unassigned", assignedTo:"", assignedName:""};
+  });
+  renderContent();
+
+  const res = await gasGet({ action:"bulkAssign", assignments, date:ST.date });
+  if(res.success){
+    toast(`${t("auto_assign_done")} — ${res.count} ${t("auto_assign_rooms")} ✓`,"ok");
+    await loadAndRender();
+    softRefresh();
+  } else {
+    toast(res.message||t("err_generic"),"err");
+    await loadAndRender();
+    softRefresh();
+  }
+}
+
+
+// ─── BOOT ─────────────────────────────────────────────
+const LIFF_ID = "2009946209-cFt4JqH1";
+async function initLiff(){
+  await new Promise((res,rej)=>{
+    const s=document.createElement("script");
+    s.src="https://static.line-scdn.net/liff/edge/2/sdk.js";
+    s.onload=res; s.onerror=rej;
+    document.head.appendChild(s);
+  });
+  try { await liff.init({ liffId: LIFF_ID }); } catch(e) {}
+}
+initLiff().then(() => {
+  // render login-page language toggle
+  const ll = document.getElementById("lang-login");
+  if(ll) ll.innerHTML = langToggleHTML();
+  document.getElementById("lbl-user").textContent = t("username");
+  document.getElementById("lbl-pass").textContent = t("password");
+  document.getElementById("btn-login").textContent = t("signin");
+  if(USER){ showApp(); }
+});
+</script>
+</body>
+</html>
